@@ -1,0 +1,130 @@
+generated: '2026-07-25'
+method: searched
+source: live probes of every apis.yml baseURL host, every OpenAPI servers[] host,
+  and every docs/portal host
+notes: >-
+  Only one /.well-known/ document exists anywhere on Telia's public API estate -
+  the OpenID Connect discovery document for the Telia Tunnistus identification
+  broker. Every Apigee Integrated Portal host (lso, camara, developer.telia.fi)
+  and the Bulk Messaging web host answer 200 to ANY /.well-known/ path with the
+  single-page-application HTML shell; those are recorded as soft_200 (not real
+  documents) and were verified by fetching a nonsense path that returned the
+  same shell. api-garden.teliacompany.com is a bare Apigee runtime that returns a
+  genuine JSON 404 fault for every discovery path. No security.txt (RFC 9116),
+  no api-catalog (RFC 9727), no ai-plugin.json and no llms.txt exists on any host.
+hosts:
+- host: https://tunnistus.telia.fi
+  role: identity broker (Telia Finland, issuer https://tunnistus.telia.fi/uas)
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: telia-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://api-garden.teliacompany.com
+  role: LSO Sonata API runtime (Apigee)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://api.messaging.teliacompany.com
+  role: Bulk Messaging SMS REST API host
+  soft_200: true
+  note: every path returns the "Bulk Messaging Web" SPA shell; /sms/rest/v2/* returns
+    a genuine HTTP 401 (HTTP Basic challenge)
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    real: false
+  - path: /.well-known/openid-configuration
+    status: 200
+    real: false
+  - path: /llms.txt
+    status: 200
+    real: false
+- host: https://lso.teliacompany.com
+  role: LSO Sonata Apigee Integrated Portal (siteId teliacompany-lso)
+  soft_200: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    real: false
+  - path: /.well-known/api-catalog
+    status: 200
+    real: false
+  - path: /llms.txt
+    status: 200
+    real: false
+- host: https://camara.teliacompany.com
+  role: CAMARA / Open Gateway Apigee Integrated Portal (siteId teliacompany-camara)
+  soft_200: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    real: false
+  - path: /.well-known/api-catalog
+    status: 200
+    real: false
+  - path: /llms.txt
+    status: 200
+    real: false
+- host: https://developer.telia.fi
+  role: Telia Finland Apigee Integrated Portal (siteId teliacompany-apifinland)
+  soft_200: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    real: false
+  - path: /llms.txt
+    status: 200
+    real: false
+- host: https://developer.teliacompany.io
+  role: Telia Developer Portal (first-party hub)
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /llms.txt
+    status: 403
+- host: https://www.teliacompany.com
+  role: corporate website
+  soft_200: true
+  note: the corporate site returns 200 with a slug-derived title for any path -
+    verified against a nonsense URL - so no 200 here is evidence of a document
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    real: false
+  - path: /llms.txt
+    status: 200
+    real: false
+summary:
+  real_documents: 1
+  security_txt: false
+  api_catalog: false
+  openid_configuration: true
+  oauth_authorization_server: false
+  ai_plugin: false
+  llms_txt: false

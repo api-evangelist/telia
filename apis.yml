@@ -63,6 +63,15 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/telia-lso-sonata-site-management.yml
+  - type: Overlay
+    url: overlays/telia-lso-sonata-site-management-overlay.yaml
+  - type: ErrorCatalog
+    url: errors/telia-problem-types.yml
+  - type: DataModel
+    url: data-model/telia-data-model.yml
+  - type: AgentSkill
+    name: Look up a Telia LSO Sonata geographic site
+    url: skills/telia-lso-site-lookup.md
   - type: Documentation
     url: https://lso.teliacompany.com/
   - type: APIReference
@@ -160,6 +169,8 @@ apis:
     url: https://lso.teliacompany.com/
   - type: APIReference
     url: https://lso.teliacompany.com/apis
+  - type: Webhooks
+    url: asyncapi/telia-webhooks.yml
 - aid: telia:telia-camara-quality-on-demand-api
   name: Telia CAMARA Quality on Demand API
   description: CAMARA Quality on Demand (QoD) API listed on Telia's CAMARA portal,
@@ -289,6 +300,11 @@ apis:
     url: https://cdn.messaging.teliacompany.com/documents/developer/index.html
   - type: APIReference
     url: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+  - type: AgentSkill
+    name: Send an SMS through Telia Bulk Messaging
+    url: skills/telia-send-bulk-sms.md
+  - type: ErrorCatalog
+    url: errors/telia-error-codes.yml
 - aid: telia:telia-bulk-messaging-sms-callback-api
   name: Telia Bulk Messaging SMS Callback API
   description: The webhook half of Telia's Bulk Messaging REST surface. Customers must
@@ -309,6 +325,8 @@ apis:
     url: https://cdn.messaging.teliacompany.com/documents/developer/index.html
   - type: APIReference
     url: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+  - type: Webhooks
+    url: asyncapi/telia-webhooks.yml
 - aid: telia:telia-bulk-messaging-smpp-api
   name: Telia Bulk Messaging SMPP API
   description: SMPP v3.4-style binary protocol interface into the Telia Company Bulk
@@ -350,6 +368,8 @@ apis:
     url: https://github.com/telia-oss/ace-audio-stream-forwarding-api
   - type: gRPC
     url: proto/telia-ace-audio-stream-forwarding-v1.proto
+  - type: Protobuf
+    url: proto/telia-ace-audio-stream-forwarding-v1.proto
   - type: SourceCode
     url: https://github.com/telia-oss/ace-audio-stream-forwarding-api
 - aid: telia:telia-tunnistus-identification-broker
@@ -375,9 +395,207 @@ apis:
     url: https://github.com/telia-oss/tunnistus
   - type: OpenIDConnectDiscovery
     url: https://tunnistus.telia.fi/.well-known/openid-configuration
+  - type: WellKnown
+    url: well-known/telia-openid-configuration.json
   - type: SourceCode
     url: https://github.com/telia-oss/tunnistus
+- aid: telia:telia-ace-knowledge-rest-api
+  name: Telia ACE Knowledge REST API
+  description: The REST API behind Telia ACE Knowledge (formerly Humany), the
+    self-service knowledge and contact-deflection product inside the Telia ACE
+    contact-centre suite. Telia documents it openly on GitHub — no login, no
+    agreement — which makes it the second-most openly specified API Telia
+    publishes. It follows a tenant-projection URL pattern of application domain
+    plus interface name plus API keyword, and carries three documented surfaces —
+    the Matching API for searching answers and retrieving knowledge-base content,
+    the Notices API for listing notices, news and alerts, and the Contact API for
+    listing contact methods and posting form data. Pagination is skip and take,
+    custom entity parameters are passed with a p. prefix, and an interface can be
+    made public or access-restricted from the administration portal.
+  humanURL: https://github.com/telia-oss/ace-knowledge-docs
+  baseURL: https://support.humany.net
+  tags:
+  - Contact Center
+  - Knowledge Base
+  - Self Service
+  - ACE Knowledge
+  - Humany
+  - Search
+  properties:
+  - type: Documentation
+    url: https://github.com/telia-oss/ace-knowledge-docs
+  - type: APIReference
+    url: https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/README.md
+  - type: SourceCode
+    url: https://github.com/telia-oss/ace-knowledge-docs
+  - type: Conventions
+    url: conventions/telia-conventions.yml
+- aid: telia:telia-ace-knowledge-contact-method-webhook
+  name: Telia ACE Knowledge Contact Method WebHook
+  description: The outbound webhook surface of Telia ACE Knowledge. A contact method
+    of type Web service forwards an end user's form submission and the current ACE
+    Knowledge parameter context to an external HTTP endpoint the customer
+    implements, and injects the response back into the widget as a dynamic answer.
+    Telia publishes the full contract openly — request content types of JSON, XML
+    or form-urlencoded, response types of text/html or text/plain, a hard 15
+    second budget for the receiver, custom headers that can be stored encrypted,
+    and optional HMAC SHA256 JWT request signing in an X-ACE-Signature header
+    carrying iss, aud, exp, iat, content_hash, method and path claims. This is the
+    only Telia event surface whose specification is available without a login.
+  humanURL: https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/webhook.md
+  tags:
+  - Contact Center
+  - Webhooks
+  - Events
+  - Request Signing
+  - ACE Knowledge
+  properties:
+  - type: Documentation
+    url: https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/webhook.md
+  - type: Webhooks
+    url: asyncapi/telia-webhooks.yml
+- aid: telia:telia-ace-web-api
+  name: Telia ACE Web API
+  description: Client-side and server-side REST interface that lets an end user
+    communicate with a Telia ACE contact centre from the customer's own website.
+    Telia publishes it in two versions — a Client version callable directly from
+    browsers with a restricted result and parameter set, and an authenticated
+    Server version for server-to-server integration that returns extensive contact
+    centre information. Documented capabilities are creating callbacks in real
+    time or from scheduled availability, checking queue status by queue name or
+    contact data, retrieving entrance and menu-selection opening hours, checking
+    whether inputs and menu selections are currently open, and exporting changelog
+    and audit records. All calls are HTTPS GET and POST. A first-party npm client
+    is published as @telia-ace/web-api; no specification is public.
+  humanURL: https://ace-showcase.com/marketplace/ace-web-api/
+  tags:
+  - Contact Center
+  - Callback
+  - Queue Status
+  - Opening Hours
+  - ACE
+  properties:
+  - type: Documentation
+    url: https://ace-showcase.com/marketplace/ace-web-api/
+  - type: SDKs
+    url: https://www.npmjs.com/package/@telia-ace/web-api
+- aid: telia:telia-ace-agent-api
+  name: Telia ACE Agent API
+  description: Integration API between the Telia ACE contact-centre platform and a
+    customer's CRM system, used to drive agent-side integration such as surfacing
+    and updating customer records against live interactions. Named and described
+    on Telia's own ACE marketplace; no specification, endpoint or authentication
+    detail is published anonymously and access runs through a Telia commercial
+    partner.
+  humanURL: https://ace-showcase.com/marketplace/ace-agent-api/
+  tags:
+  - Contact Center
+  - CRM
+  - Agent Desktop
+  - ACE
+  properties:
+  - type: Documentation
+    url: https://ace-showcase.com/marketplace/ace-agent-api/
+- aid: telia:telia-ace-workitem-api
+  name: Telia ACE Workitem API
+  description: Work-item management API for the Telia ACE contact centre, covering
+    prioritisation, queue management and forwarding of tasks across the platform.
+    Named and described on Telia's ACE marketplace; no specification is published
+    anonymously.
+  humanURL: https://ace-showcase.com/marketplace/ace-work-item-api/
+  tags:
+  - Contact Center
+  - Work Items
+  - Queue Management
+  - ACE
+  properties:
+  - type: Documentation
+    url: https://ace-showcase.com/marketplace/ace-work-item-api/
+- aid: telia:telia-ace-screen-pop-api
+  name: Telia ACE Screen Pop API
+  description: Screen-pop integration API for Telia ACE that automatically opens the
+    matching customer profile in the agent's business system when an interaction
+    arrives, which Telia states saves 10 to 20 seconds per contact. Named and
+    described on Telia's ACE marketplace; no specification is published
+    anonymously.
+  humanURL: https://ace-showcase.com/marketplace/ace-screen-pop-api/
+  tags:
+  - Contact Center
+  - Screen Pop
+  - CTI
+  - ACE
+  properties:
+  - type: Documentation
+    url: https://ace-showcase.com/marketplace/ace-screen-pop-api/
+- aid: telia:telia-ace-interaction-view-api
+  name: Telia ACE Interaction View API
+  description: Export API against Telia ACE Interaction View that allows content and
+    data from recorded contact-centre interactions to be exported to external
+    systems for analytics, quality management or archiving. Named and described on
+    Telia's ACE marketplace; no specification is published anonymously.
+  humanURL: https://ace-showcase.com/marketplace/interaction-view-api/
+  tags:
+  - Contact Center
+  - Analytics
+  - Data Export
+  - Interaction View
+  - ACE
+  properties:
+  - type: Documentation
+    url: https://ace-showcase.com/marketplace/interaction-view-api/
 common:
+- type: AgenticAccess
+  url: agentic-access/telia-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/telia-vulnerability-disclosure.yml
+- type: Security
+  url: security/telia-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/telia-domain-security.yml
+- type: Authentication
+  url: authentication/telia-authentication.yml
+- type: OAuthScopes
+  url: scopes/telia-scopes.yml
+- type: Packages
+  url: packages/telia-packages.yml
+- type: SDKs
+  url: packages/telia-packages.yml
+- type: CLI
+  url: cli/telia-cli.yml
+- type: Components
+  url: components/telia-components.yml
+- type: WellKnown
+  url: well-known/telia-well-known.yml
+- type: MCPServer
+  url: mcp/telia-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/telia-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/telia-llms.txt
+- type: Overlay
+  url: overlays/telia-lso-sonata-site-management-overlay.yaml
+- type: Conformance
+  url: conformance/telia-conformance.yml
+- type: ErrorCatalog
+  url: errors/telia-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/telia-lifecycle.yml
+- type: StatusPage
+  url: https://www.telia.se/support/driftinformation-mobilt
+- type: ChangeLog
+  url: changelog/telia-changelog.yml
+- type: Conventions
+  url: conventions/telia-conventions.yml
+- type: DataModel
+  url: data-model/telia-data-model.yml
+- type: Sandbox
+  url: sandbox/telia-sandbox.yml
+- type: Webhooks
+  url: asyncapi/telia-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Protobuf
+  url: proto/telia-ace-audio-stream-forwarding-v1.proto
 - type: Website
   url: https://www.teliacompany.com/
 - type: DeveloperPortal
@@ -396,6 +614,16 @@ common:
   url: https://www.linkedin.com/company/telia-company
 - type: Support
   url: mailto:camara@teliacompany.com
+- type: Support
+  url: mailto:mef-lso.team@teliacompanyspace.onmicrosoft.com
+- type: GettingStarted
+  url: https://lso.teliacompany.com/get-started
+- type: SignUp
+  url: https://lso.teliacompany.com/register
+- type: Blog
+  url: https://ace-showcase.com/blog/
+- type: APIReference
+  url: https://cdn.messaging.teliacompany.com/documents/developer/index.html
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

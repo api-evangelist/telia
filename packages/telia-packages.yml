@@ -1,0 +1,339 @@
+generated: '2026-07-25'
+method: searched
+source: https://registry.npmjs.org/-/v1/search?text=@telia-ace
+notes: >-
+  Telia Company publishes no client SDK for its LSO Sonata, CAMARA or Bulk
+  Messaging APIs. It does publish a large, actively maintained first-party
+  JavaScript package estate on npm for the Telia ACE contact-centre product
+  under the @telia-ace scope (ACE Knowledge widgets, ACE Web SDK, ACE Alliance),
+  plus two design-system libraries under @telia / @teliads. Every package below
+  was resolved live against registry.npmjs.org on 2026-07-25 and carries a Telia
+  ACE / Telia Company description, homepage or repository, which is what
+  "official: true" is asserting. Registries probed with no first-party Telia
+  result - PyPI (https://pypi.org/simple/telia/ HTTP 404), Maven Central, NuGet,
+  pkg.go.dev, RubyGems, Packagist, crates.io.
+registries_probed:
+- registry: npm
+  result: 50+ first-party packages under @telia-ace, @telia, @teliads
+- registry: pypi
+  result: no first-party package (telia -> HTTP 404)
+- registry: maven-central
+  result: none found
+- registry: nuget
+  result: none found
+- registry: pkg.go.dev
+  result: none found
+- registry: rubygems
+  result: none found
+- registry: packagist
+  result: none found
+- registry: crates.io
+  result: none found (the ACE audio-stream sender simulator is a Rust source
+    repo, not a published crate)
+packages:
+- language: javascript
+  registry: npm
+  name: '@telia-ace/web-api'
+  url: https://www.npmjs.com/package/@telia-ace/web-api
+  install: npm install @telia-ace/web-api
+  version: 1.0.21
+  published: '2023-11-30'
+  homepage: https://ace-showcase.com/
+  description: Telia ACE package for ACE Web API REST Interface.
+  official: true
+  family: ace-web-sdk
+- language: javascript
+  registry: npm
+  name: '@telia-ace/websdk-chat-api'
+  url: https://www.npmjs.com/package/@telia-ace/websdk-chat-api
+  install: npm install @telia-ace/websdk-chat-api
+  version: 1.0.28
+  published: '2023-11-30'
+  description: Telia ACE Web SDK package to handle ACE Chat sessions.
+  official: true
+  family: ace-web-sdk
+- language: javascript
+  registry: npm
+  name: '@telia-ace/websdk-auth-token'
+  url: https://www.npmjs.com/package/@telia-ace/websdk-auth-token
+  install: npm install @telia-ace/websdk-auth-token
+  version: 1.0.25
+  published: '2023-11-30'
+  description: Telia ACE Web SDK package to handle authenticated ACE chat sessions.
+  official: true
+  family: ace-web-sdk
+- language: javascript
+  registry: npm
+  name: '@telia-ace/websdk-overseer'
+  url: https://www.npmjs.com/package/@telia-ace/websdk-overseer
+  install: npm install @telia-ace/websdk-overseer
+  version: 1.0.29
+  published: '2023-11-30'
+  description: Telia ACE Web SDK package for coordination between ACE Chat and
+    Proactive surfaces.
+  official: true
+  family: ace-web-sdk
+- language: javascript
+  registry: npm
+  name: '@telia-ace/websdk-insights'
+  url: https://www.npmjs.com/package/@telia-ace/websdk-insights
+  install: npm install @telia-ace/websdk-insights
+  version: 1.0.24
+  published: '2023-11-30'
+  description: Telia ACE Web SDK package for Google Analytics and Google Tag Manager.
+  official: true
+  family: ace-web-sdk
+- language: javascript
+  registry: npm
+  name: '@telia-ace/websdk-xd-storage'
+  url: https://www.npmjs.com/package/@telia-ace/websdk-xd-storage
+  install: npm install @telia-ace/websdk-xd-storage
+  version: 1.0.28
+  published: '2023-11-30'
+  description: Cross-domain storage for the ACE Web SDK.
+  official: true
+  family: ace-web-sdk
+- language: javascript
+  registry: npm
+  name: '@telia-ace/websdk-id-container'
+  url: https://www.npmjs.com/package/@telia-ace/websdk-id-container
+  install: npm install @telia-ace/websdk-id-container
+  version: 1.0.25
+  published: '2023-11-30'
+  description: Data storage for ACE Web SDK clients.
+  official: true
+  family: ace-web-sdk
+- language: javascript
+  registry: npm
+  name: '@telia-ace/websdk-utilities'
+  url: https://www.npmjs.com/package/@telia-ace/websdk-utilities
+  install: npm install @telia-ace/websdk-utilities
+  version: 1.0.28
+  published: '2023-11-30'
+  description: Telia ACE utility functions for ACE Web SDK.
+  official: true
+  family: ace-web-sdk
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-core'
+  url: https://www.npmjs.com/package/@telia-ace/widget-core
+  install: npm install @telia-ace/widget-core
+  version: 1.3.48
+  published: '2026-07-13'
+  description: Core runtime for ACE Knowledge Widgets (runtime version 5).
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-conversation'
+  url: https://www.npmjs.com/package/@telia-ace/widget-conversation
+  install: npm install @telia-ace/widget-conversation
+  version: 1.3.48
+  published: '2026-07-13'
+  description: Conversation API surface for ACE Knowledge Widgets.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-tracking'
+  url: https://www.npmjs.com/package/@telia-ace/widget-tracking
+  install: npm install @telia-ace/widget-tracking
+  version: 1.3.48
+  published: '2026-07-13'
+  description: Tracking API surface for ACE Knowledge Widgets.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-services'
+  url: https://www.npmjs.com/package/@telia-ace/widget-services
+  install: npm install @telia-ace/widget-services
+  version: 1.3.48
+  published: '2026-07-13'
+  description: Service and storage APIs for ACE Knowledge Widgets.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-plugins'
+  url: https://www.npmjs.com/package/@telia-ace/widget-plugins
+  install: npm install @telia-ace/widget-plugins
+  version: 1.3.48
+  published: '2026-07-13'
+  description: Plugin API for ACE Knowledge Widgets.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-ui'
+  url: https://www.npmjs.com/package/@telia-ace/widget-ui
+  install: npm install @telia-ace/widget-ui
+  version: 1.3.48
+  published: '2026-07-13'
+  description: UI layer for ACE Knowledge Widgets.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-forms'
+  url: https://www.npmjs.com/package/@telia-ace/widget-forms
+  install: npm install @telia-ace/widget-forms
+  version: 1.3.48
+  published: '2026-07-13'
+  description: Form rendering for ACE Knowledge Widget contact methods.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-routing'
+  url: https://www.npmjs.com/package/@telia-ace/widget-routing
+  install: npm install @telia-ace/widget-routing
+  version: 1.3.48
+  published: '2026-07-13'
+  description: Routing for ACE Knowledge Widgets.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-utilities'
+  url: https://www.npmjs.com/package/@telia-ace/widget-utilities
+  install: npm install @telia-ace/widget-utilities
+  version: 1.3.48
+  published: '2026-07-13'
+  description: Shared utilities for ACE Knowledge Widgets.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/knowledge-data-client'
+  url: https://www.npmjs.com/package/@telia-ace/knowledge-data-client
+  install: npm install @telia-ace/knowledge-data-client
+  version: 1.3.48
+  published: '2026-07-13'
+  description: Data client for the ACE Knowledge REST API.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/knowledge-serviceclient'
+  url: https://www.npmjs.com/package/@telia-ace/knowledge-serviceclient
+  install: npm install @telia-ace/knowledge-serviceclient
+  version: 1.0.32
+  published: '2023-09-25'
+  description: Service client for communication with classical ACE Knowledge
+    projections.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-chat-plugin'
+  url: https://www.npmjs.com/package/@telia-ace/widget-chat-plugin
+  install: npm install @telia-ace/widget-chat-plugin
+  version: 3.0.12
+  published: '2023-11-30'
+  description: One Widget plugin for creating chat sessions in an ACE contact centre.
+  official: true
+  family: ace-widget-plugins
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-callback-plugin'
+  url: https://www.npmjs.com/package/@telia-ace/widget-callback-plugin
+  install: npm install @telia-ace/widget-callback-plugin
+  version: 2.0.12
+  published: '2023-11-30'
+  description: One Widget plugin for creating callback posts in an ACE contact centre.
+  official: true
+  family: ace-widget-plugins
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-email-plugin'
+  url: https://www.npmjs.com/package/@telia-ace/widget-email-plugin
+  install: npm install @telia-ace/widget-email-plugin
+  version: 2.0.12
+  published: '2023-11-30'
+  description: One Widget plugin for sending email messages to an ACE contact centre.
+  official: true
+  family: ace-widget-plugins
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-phone-plugin'
+  url: https://www.npmjs.com/package/@telia-ace/widget-phone-plugin
+  install: npm install @telia-ace/widget-phone-plugin
+  version: 2.0.10
+  published: '2023-08-30'
+  description: One Widget plugin for starting phone calls to an ACE contact centre.
+  official: true
+  family: ace-widget-plugins
+- language: javascript
+  registry: npm
+  name: '@telia-ace/widget-developer-tools'
+  url: https://www.npmjs.com/package/@telia-ace/widget-developer-tools
+  install: npm install @telia-ace/widget-developer-tools
+  version: 1.0.24
+  published: '2023-09-28'
+  description: Tools and utilities to use when developing ACE Widgets.
+  official: true
+  family: ace-knowledge-widgets
+- language: javascript
+  registry: npm
+  name: '@telia-ace/alliance-framework'
+  url: https://www.npmjs.com/package/@telia-ace/alliance-framework
+  install: npm install @telia-ace/alliance-framework
+  version: 4.0.2
+  published: '2025-11-06'
+  description: The front-end framework for ACE Alliance.
+  official: true
+  family: ace-alliance
+- language: javascript
+  registry: npm
+  name: '@telia-ace/alliance-cli'
+  url: https://www.npmjs.com/package/@telia-ace/alliance-cli
+  install: npm install -g @telia-ace/alliance-cli
+  version: 4.0.2
+  published: '2025-11-06'
+  description: CLI used when developing ACE Alliance apps.
+  official: true
+  family: ace-alliance
+  cli: true
+- language: javascript
+  registry: npm
+  name: '@telia/teddy'
+  url: https://www.npmjs.com/package/@telia/teddy
+  install: npm install @telia/teddy
+  version: 0.7.76
+  published: '2026-07-22'
+  license: AGPL-3.0
+  repository: https://github.com/telia-company/teddy
+  description: Teddy - Telia Norway's design system.
+  official: true
+  family: design-system
+- language: javascript
+  registry: npm
+  name: '@teliads/components'
+  url: https://www.npmjs.com/package/@teliads/components
+  install: npm install @teliads/components
+  version: 22.1.1
+  published: '2023-08-14'
+  license: MIT
+  repository: https://github.com/telia-company/design-system
+  description: Telia Global Design System component library.
+  official: true
+  family: design-system
+- language: javascript
+  registry: npm
+  name: '@telia/styleguide'
+  url: https://www.npmjs.com/package/@telia/styleguide
+  install: npm install @telia/styleguide
+  version: 1.57.66
+  published: '2025-11-25'
+  license: ISC
+  description: React component library of the Atomic Design components in the
+    Telia styleguide.
+  official: true
+  family: design-system
+gaps:
+- No SDK for the LSO Sonata (MEF/TM Forum) APIs in any language.
+- No SDK for the CAMARA / Open Gateway APIs; Telia's network-API developer
+  channel is Nokia Network as Code rather than a Telia-published client library.
+- No SDK for the Bulk Messaging SMS REST or SMPP APIs - the public
+  implementation guide ships raw cURL only.

@@ -1,0 +1,149 @@
+generated: '2026-07-25'
+method: searched
+source: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+also_derived_from:
+- openapi/telia-lso-sonata-site-management.yml
+- https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/README.md
+notes: >-
+  Telia has no single company-wide API style guide. What follows is the union of
+  the cross-cutting semantics each of its three openly documented surfaces
+  actually publishes - Bulk Messaging (SMS REST + SMPP), LSO Sonata (MEF/TM
+  Forum), and ACE Knowledge (the humany.net REST API). They differ materially:
+  LSO Sonata inherits TM Forum conventions, Bulk Messaging is a hand-rolled JSON
+  API, and ACE Knowledge is a tenant-subdomain projection API.
+authentication:
+  styles:
+  - surface: Bulk Messaging SMS REST API
+    style: HTTP Basic
+    header: 'Authorization: Basic <base64>'
+    credential_source: created by a Technical-role user in the Bulk Messaging web
+      portal
+  - surface: LSO Sonata
+    style: OAuth 2.0 client credentials bearer token
+    token_urls:
+    - https://api-garden.teliacompany.com/v4/oauth/client_credential/accesstoken
+    - https://api-garden-test.teliacompany.com/v4/oauth/client_credential/accesstoken
+  - surface: SMPP
+    style: system_id + password on bind, plus static source-IP ACL whitelisting
+  - surface: ACE Audio Stream Forwarding (gRPC)
+    style: mutual TLS with client certificates
+  - surface: ACE Knowledge REST
+    style: public or access-restricted per interface, configured in the admin portal
+  see: authentication/telia-authentication.yml
+idempotency:
+  supported: false
+  evidence: >-
+    No idempotency key is documented on any Telia surface. The SMS REST API
+    carries a customer reference field ("cref", a client-supplied GUID present in
+    every published example) but Telia does not document it as a de-duplication
+    or replay-safety key, so it is recorded as correlation only. The only
+    anonymously available OpenAPI declares two GET operations and therefore has
+    no idempotency parameter. No Idempotency-Key header appears anywhere in the
+    Bulk Messaging implementation guide.
+  correlation_field: cref
+  correlation_note: client-supplied reference echoed for message correlation, not
+    documented as idempotency
+pagination:
+  - surface: ACE Knowledge REST
+    style: offset
+    params:
+    - skip
+    - take
+    source: https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/README.md
+  - surface: LSO Sonata Geographic Site
+    style: filter-based list, no pagination parameters declared in the published
+      specification
+content_types:
+  request:
+  - application/json
+  response:
+  - application/json
+  ace_knowledge_webhook_request:
+  - application/json
+  - application/xml
+  - application/x-www-form-urlencoded
+  ace_knowledge_webhook_response:
+  - text/html
+  - text/plain
+timestamps:
+  format: ISO-8601
+  example: '2024-07-01T14:00:00.000Z'
+  timezone_guidance: any offset accepted; UTC or local offset recommended;
+    callbacks typically UTC
+null_handling:
+  guidance: optional fields may be omitted; clients should not send null for empty
+    fields
+addressing:
+  msisdn: E.164 with + prefix and country code, max 15 digits (example +4712345678)
+  access_numbers: 4-6 digits, no + prefix and no country code (examples 12345,
+    1984, 116000)
+  alphanumeric_sender_id: max 11 characters, GSM7 character set
+  sub_numbers: Norway only, exactly 9 digits appended to a 4- or 5-digit access
+    number
+message_semantics:
+  max_segments: 16
+  max_chars_per_gsm7_segment: 153
+  max_bytes_per_custom_segment: 140
+  data_codings:
+  - GSM8 (default)
+  - GSM7
+  - Latin-1 (ISO-8859-1)
+  - Latin-9 (ISO-8859-15)
+  - UCS-2 / UNICODE
+  flags:
+  - flash
+  - dataCoding
+  - dcs
+  content_formats:
+  - text
+  - HEX
+request_signing:
+  surface: ACE Knowledge contact-method webhook
+  supported: true
+  header: X-ACE-Signature
+  algorithm: HMAC SHA256 (JWT)
+  claims:
+  - iss (ace-knowledge)
+  - aud (receiving endpoint url)
+  - exp (issued_at + 60s)
+  - iat
+  - content_hash (base64 SHA256 of request body)
+  - method
+  - path
+  source: https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/webhook.md
+tracing:
+  request_id_header: null
+  note: no request-id or correlation header is documented on any surface; the
+    Apigee portal APIs return a request_id in portal management responses only
+versioning:
+  scheme: uri-path
+  examples:
+  - https://api.messaging.teliacompany.com/sms/rest/v2 (SMS REST v2)
+  - https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement (LSO v1)
+  document_versioning: the Bulk Messaging implementation guide is itself versioned
+    (v1.5, 2026-05-18) with a dated revision table
+  see: lifecycle/telia-lifecycle.yml
+error_envelope:
+  lso_sonata:
+    format: TM Forum / MEF error schema (Error400..Error503 components)
+    media_type: application/json
+    problem_json: false
+  bulk_messaging_smpp:
+    format: SMPP command_status codes, including Telia vendor-specific values
+  ace_knowledge_webhook:
+    format: upstream failures surface as HTTP 500 on the original ACE Knowledge
+      request with a debugging message
+  see: errors/telia-problem-types.yml
+rate_limiting:
+  headers: null
+  controls:
+  - surface: SMPP
+    control: window size (default 10 PDUs, adjustable by support) and a per-service
+      connection count configured in the Bulk Messaging portal
+  - surface: Bulk Messaging
+    control: traffic quota (daily/monthly, all traffic or foreign traffic) enforced
+      by rejection with vendor status 1041
+  note: no HTTP rate-limit response headers are documented on any REST surface
+timeouts:
+  smpp_connect_and_read: 10 seconds recommended
+  ace_knowledge_webhook: external service must respond within 15 seconds

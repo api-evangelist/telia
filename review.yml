@@ -286,6 +286,63 @@ findings:
   - protocol: WebSocket
     documented: false
     note: None found.
+round2:
+  date: '2026-07-25'
+  summary: >-
+    Enrichment round 2 overturned three round-1 conclusions and found a whole
+    product family that the developer-portal-first sweep missed.
+  corrections:
+  - finding: sdks.firstParty was recorded as false
+    correction: >-
+      FALSE. Telia publishes 25+ actively maintained first-party npm packages
+      under the @telia-ace scope (ACE Knowledge Widgets, ACE Web SDK, ACE
+      Alliance) plus @telia/teddy, @teliads/components and @telia/styleguide.
+      The widget line was last published 2026-07-13 at version 1.3.48. Round 1
+      searched the npm scope "telia" only, which returns nothing. Captured in
+      packages/telia-packages.yml.
+  - finding: no first-party CLI
+    correction: '@telia-ace/alliance-cli v4.0.2 (2025-11-06) is a first-party CLI,
+      scoped to ACE Alliance app development. Captured in cli/telia-cli.yml.'
+  - finding: probe hit on https://www.teliacompany.com/security/responsible-disclosure
+    correction: >-
+      FALSE POSITIVE - that path is a soft 404. The real, verified vulnerability
+      contact is cert@teliacompany.com, published in Telia's public Supplier
+      Security Directive v8.0 with a 24-hour reporting window. Corrected in
+      security/telia-vulnerability-disclosure.yml.
+  new_surfaces_found:
+  - surface: Telia ACE Knowledge REST API
+    evidence: https://github.com/telia-oss/ace-knowledge-docs
+    note: Matching, Notices, Contact and WebHook APIs documented openly on GitHub
+      with no login - the second-most openly specified Telia API surface, and it
+      is not linked from any Telia developer portal
+  - surface: ACE Knowledge contact-method webhook
+    evidence: https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/webhook.md
+    note: the only Telia event surface with a fully public contract, including
+      HMAC SHA256 JWT request signing in an X-ACE-Signature header
+  - surface: ACE Knowledge Widgets component library
+    evidence: https://github.com/telia-oss/ace-widgets
+    note: 30 documented embeddable components, an Orchestration API and a
+      Component API, cloud- or self-hosted
+  - surface: ACE Web API, Agent API, Workitem API, Screen Pop API, Interaction
+      View API
+    evidence: https://ace-showcase.com/products/ace-apis-and-integrations/
+    note: five further ACE APIs named and described on Telia's own marketplace,
+      none with a public specification
+  - surface: docs.ace.teliacompany.com
+    evidence: HTTP 200
+    note: a real Telia documentation host that round 1's dead-subdomain sweep
+      missed (it probed docs.teliacompany.com); it currently redirects every deep
+      link to its home page, so no page could be captured
+  - surface: Tunnistus pre-production sample
+    evidence: https://github.com/telia-oss/tunnistus-python-sample
+    note: Telia-published Python integration sample against the Tunnistus
+      pre-production environment
+  confirmed_unchanged:
+  - the CAMARA portal's anonymous catalog still returns zero apiDocs
+  - the Telia Finland portal's anonymous catalog still returns zero apiDocs
+  - exactly one OpenAPI remains anonymously downloadable estate-wide
+  - no GraphQL, no AsyncAPI, no MCP server, no llms.txt, no security.txt and no
+    api-catalog anywhere on the estate
 sources:
 - url: https://developer.teliacompany.io/
   type: DeveloperPortal

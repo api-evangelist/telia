@@ -1,0 +1,70 @@
+generated: '2026-07-25'
+method: searched
+source: openapi/telia-lso-sonata-site-management.yml
+also_searched:
+- https://lso.teliacompany.com/
+- https://camara.teliacompany.com/
+- https://cdn.messaging.teliacompany.com/documents/developer/index.html
+- https://github.com/telia-oss/tunnistus-python-sample
+notes: >-
+  Telia separates test from production at the HOST level, not by key prefix.
+  There are no magic test numbers, no test cards and no fixture/trigger tooling
+  published anywhere - the Bulk Messaging implementation guide documents no test
+  MSISDN range at all, which is the notable gap for a messaging provider. Every
+  value below is taken verbatim from a Telia-published artifact; nothing is
+  invented.
+test_live_separation:
+  model: separate hosts and separate OAuth token endpoints per environment
+  key_prefixes: null
+  modes: null
+environments:
+- name: Production
+  surface: LSO Sonata Geographic Site Management
+  base_url: https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement
+  token_url: https://api-garden.teliacompany.com/v4/oauth/client_credential/accesstoken
+  security_scheme: prodBearerAuth
+- name: Test
+  surface: LSO Sonata Geographic Site Management
+  base_url: https://api-garden-test.teliacompany.com/v1/api/mef/geographicSiteManagement
+  token_url: https://api-garden-test.teliacompany.com/v4/oauth/client_credential/accesstoken
+  security_scheme: testBearerAuth
+  note: Telia declares one token endpoint for ALL test environments
+- name: Sandbox
+  surface: LSO Sonata Geographic Site Management
+  base_url: https://api-garden.teliacompany.com/sandbox/v1/api/mef/geographicSiteManagement
+  note: sandbox is a path segment on the production host, sharing the production
+    token endpoint
+portal_sandbox_categories:
+- portal: https://lso.teliacompany.com/
+  category: Sandbox
+  documents_visible_anonymously: 0
+- portal: https://camara.teliacompany.com/
+  category: Sandboxes
+  documents_visible_anonymously: 0
+  note: the CAMARA portal advertises a Sandboxes category but returns an empty
+    apiDocs array to an anonymous caller, so no CAMARA sandbox is reachable
+    without a commercial agreement
+pre_production:
+- surface: Telia Tunnistus identification broker
+  repo: https://github.com/telia-oss/tunnistus-python-sample
+  description: Telia-published Python sample application for integrating against
+    the Tunnistus PRE-PRODUCTION environment, including client.json, client.jwks,
+    an OpenID federation entity statement and a registration-request script
+  official: true
+test_values:
+  test_msisdns: null
+  test_cards: null
+  test_clock: null
+  fixtures: null
+  note: none published; the Bulk Messaging guide's example numbers (+4712345678,
+    access numbers 12345 / 1984 / 8400) are documentation placeholders, NOT
+    reserved test numbers, and are recorded here only so they are not mistaken
+    for magic values
+access_prerequisites:
+- A signed Bulk Messaging agreement per Telia country before any SMS credential
+  is issued.
+- An existing Telia commercial agreement, a whitelisted corporate email domain,
+  manual support approval of the account and a second approval of the registered
+  app before any LSO Sonata or CAMARA credential is issued.
+- Static source IP addresses whitelisted in Telia's ACL before SMPP bind.
+self_serve: false

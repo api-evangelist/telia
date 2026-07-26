@@ -1,0 +1,141 @@
+generated: '2026-07-25'
+method: derived
+source: openapi/telia-lso-sonata-site-management.yml
+notes: >-
+  Entity graph derived from the only Telia OpenAPI available anonymously. The
+  model is TM Forum TMF674 / MEF 122 Geographic Site, so the entity names and
+  shapes are standards-defined rather than Telia-defined - including the two
+  spelling quirks carried over from the MEF source (additionnalSiteInformation,
+  GeographicSubAdress), preserved verbatim here because they are the real field
+  names an integrator must send. Only 2 of Telia's ~18 catalogued APIs have a
+  retrievable schema, so this graph covers the site-management domain only.
+domains:
+- name: site-management
+  api: Telia LSO Sonata Geographic Site Management API
+  spec: openapi/telia-lso-sonata-site-management.yml
+  operations:
+  - listGeographicSite
+  - retrieveGeographicSite
+entities:
+- name: GeographicSiteSummary
+  domain: site-management
+  identifier: id (string)
+  required:
+  - id
+  - siteCompanyName
+  - status
+  - geographicAddress
+  returned_by:
+  - listGeographicSite
+  description: List projection of a geographic site, carrying a flat postal address
+- name: GeographicSite
+  domain: site-management
+  identifier: id (integer)
+  required:
+  - id
+  - siteCompanyName
+  - additionnalSiteInformation
+  - status
+  - fieldedAddress
+  - geographicLocation
+  - geographicSubAdress
+  returned_by:
+  - retrieveGeographicSite
+  description: Full geographic site detail, carrying a structured address, a spatial
+    location and a sub-address tree
+  note: the detail projection identifies a site with an INTEGER id while the list
+    projection uses a STRING id - a real inconsistency in the published spec
+- name: GeographicAddress
+  domain: site-management
+  required:
+  - streetNr
+  - streetName
+  - city
+  - postcode
+  - country
+  description: Flat postal address used by the list projection
+- name: FieldedAddress
+  domain: site-management
+  identifier: id (integer)
+  required:
+  - id
+  - streetNr
+  - streetName
+  - postcode
+  - city
+  - stateOrProvince
+  - country
+  description: Structured postal address used by the detail projection, adding
+    stateOrProvince and its own identifier
+- name: GeographicLocation
+  domain: site-management
+  identifier: id (integer)
+  required:
+  - id
+  - spatialRef
+  - geographicPoint
+  description: Spatial location with a named spatial reference system
+- name: GeographicPoint
+  domain: site-management
+  required:
+  - latitude
+  - longitude
+  description: A single coordinate pair (both carried as strings)
+- name: GeographicSubAdress
+  domain: site-management
+  identifier: id (integer)
+  required:
+  - id
+  - buildingName
+  - subUnit
+  description: Building-level sub-address (level type and number optional)
+- name: SubUnit
+  domain: site-management
+  required:
+  - subUnitType
+  description: A unit inside a building, e.g. floor, apartment or room
+relationships:
+- from: GeographicSiteSummary
+  to: GeographicAddress
+  type: has_one
+  via: geographicAddress
+- from: GeographicSite
+  to: FieldedAddress
+  type: has_one
+  via: fieldedAddress
+- from: GeographicSite
+  to: GeographicLocation
+  type: has_one
+  via: geographicLocation
+- from: GeographicSite
+  to: GeographicSubAdress
+  type: has_many
+  via: geographicSubAdress
+- from: GeographicLocation
+  to: GeographicPoint
+  type: has_many
+  via: geographicPoint
+- from: GeographicSubAdress
+  to: SubUnit
+  type: has_many
+  via: subUnit
+partitioning:
+  key: country
+  location: path parameter on every operation
+  note: every site lookup is scoped to a Telia LSO country segment; the same
+    identifier space is not shared across countries
+id_prefixes: null
+coverage:
+  entities: 8
+  relationships: 6
+  apis_with_retrievable_schema: 1
+  apis_in_catalog: 18
+undocumented_domains:
+- quote and order (TMF648 / TMF622) - schemas behind portal sign-in
+- product offering qualification (TMF679) - schema behind portal sign-in
+- geographic address (TMF673) - schema behind portal sign-in
+- CAMARA QoD / device location - no schema published anonymously
+- Bulk Messaging SMS message and delivery report - OpenAPI behind portal login;
+  the message payload fields (cref, to, from, message, dataCoding, flash,
+  content[], dcs) are documented in the public implementation guide but not as a
+  schema

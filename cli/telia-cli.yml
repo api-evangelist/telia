@@ -1,0 +1,35 @@
+generated: '2026-07-25'
+method: searched
+source: https://www.npmjs.com/package/@telia-ace/alliance-cli
+notes: >-
+  Telia ships no CLI for its LSO Sonata, CAMARA, Telia Finland or Bulk Messaging
+  APIs. It does publish one first-party command-line tool on npm, for building
+  applications on the Telia ACE Alliance platform. Scope is recorded honestly:
+  this is an app-development CLI for the ACE ecosystem, not a client for the
+  public API estate.
+clis:
+- name: alliance-cli
+  package: '@telia-ace/alliance-cli'
+  registry: npm
+  url: https://www.npmjs.com/package/@telia-ace/alliance-cli
+  version: 4.0.2
+  published: '2025-11-06'
+  license: SEE LICENSE IN LICENSE.txt
+  official: true
+  scope: Telia ACE Alliance application development
+  description: CLI used when developing ACE Alliance apps.
+  install:
+  - npm install -g @telia-ace/alliance-cli
+  companion_packages:
+  - '@telia-ace/alliance-framework'
+  - '@telia-ace/alliance-ui'
+  - '@telia-ace/alliance-utilities'
+  - '@telia-ace/alliance-data'
+  - '@telia-ace/alliance-portal'
+  command_surface: not published in the package registry metadata or in any public
+    Telia documentation; recorded as unknown rather than guessed
+not_found:
+- no CLI for LSO Sonata / MEF Sonata ordering
+- no CLI for the CAMARA / Open Gateway APIs
+- no CLI for Bulk Messaging (SMS REST or SMPP)
+- no Telia CLI in Homebrew, PyPI, Go modules, Chocolatey or crates.io

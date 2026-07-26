@@ -1,0 +1,105 @@
+generated: '2026-07-25'
+method: searched
+source: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+also_searched:
+- https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/webhook.md
+- https://lso.teliacompany.com/apis
+asyncapi:
+  published: false
+  probed:
+  - https://api-garden.teliacompany.com/asyncapi.yaml (HTTP 404)
+  - https://api-garden-test.teliacompany.com/asyncapi.yaml (HTTP 404)
+  - https://api.messaging.teliacompany.com/asyncapi.yaml (SPA shell, not a spec)
+  - Apigee portal catalogs for lso / camara / apifinland report asyncApiSpecContent
+    null for every catalogued API
+  note: >-
+    Telia has three real event surfaces and describes none of them with AsyncAPI.
+    Two of the three are "reverse webhooks" - the CUSTOMER implements the
+    endpoint and Telia calls it - which is exactly the pattern AsyncAPI exists to
+    describe.
+webhooks:
+- name: Bulk Messaging SMS Callback API
+  direction: telia-to-customer
+  implemented_by: customer
+  transport: HTTPS POST
+  docs: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+  events:
+  - event: Receive SMS (MO)
+    description: A mobile subscriber sent an SMS to the customer's access number,
+      long number or sub-number; the Bulk Messaging platform posts it to the
+      customer's callback endpoint.
+  - event: Receive delivery report (DLR)
+    description: The platform posts the delivery outcome for a previously submitted
+      mobile-terminated message.
+  contract: >-
+    Telia states the customer's implementation "must match Open API specification
+    that Telia Company provides" - that specification is hosted in the Bulk
+    Messaging portal Documents section behind a login and was not retrievable
+    anonymously.
+  configuration: callback address and callback credentials are set per service in
+    the Bulk Messaging web portal, Technical Configuration section
+  auth: HTTP Basic (customer-supplied credentials registered in the portal)
+  spec_available_anonymously: false
+- name: LSO Sonata Notification API
+  direction: seller-to-buyer
+  implemented_by: buyer (listener registration)
+  transport: HTTPS
+  docs: https://lso.teliacompany.com/apis
+  events:
+  - event: Quote state change
+  - event: Create quote
+  - event: Quote attribute change
+  - event: BAFO (best and final offer) quote
+  - event: Order state change
+  lineage: TM Forum notification/listener pattern within the MEF LSO Sonata
+    programme
+  spec_available_anonymously: false
+- name: ACE Knowledge contact-method WebHook
+  direction: telia-to-customer
+  implemented_by: customer
+  transport: HTTPS POST
+  docs: https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/webhook.md
+  description: >-
+    A contact method of type "Web service" forwards the end user's form
+    submission and the current ACE Knowledge parameter context to an external
+    HTTP endpoint of the customer's choosing; the response text is injected back
+    into the widget as a dynamic answer.
+  request_content_types:
+  - application/json
+  - application/xml
+  - application/x-www-form-urlencoded
+  response_content_types:
+  - text/html
+  - text/plain
+  timeout_seconds: 15
+  security:
+    request_signing: true
+    header: X-ACE-Signature
+    algorithm: HMAC SHA256 (JWT)
+    claims:
+    - iss
+    - aud
+    - exp
+    - iat
+    - content_hash
+    - method
+    - path
+    custom_headers: supported, may be marked secret and are stored encrypted
+    https_enforced: new web service contact methods enforce HTTPS
+  failure_mode: any communication error surfaces as HTTP 500 on the original ACE
+    Knowledge request
+  spec_available_anonymously: true
+streaming:
+- name: Telia ACE Audio Stream Forwarding
+  transport: gRPC bidirectional streaming over HTTP/2
+  contract: proto/telia-ace-audio-stream-forwarding-v1.proto
+  auth: mutual TLS with client certificates
+  direction: telia-to-customer (Telia connects outbound to a customer-implemented
+    receiver)
+  note: a genuine real-time event surface, specified with protobuf rather than
+    AsyncAPI
+summary:
+  asyncapi_documents: 0
+  webhook_surfaces: 3
+  streaming_surfaces: 1
+  webhook_specs_public: 1

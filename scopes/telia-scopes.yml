@@ -1,0 +1,61 @@
+generated: '2026-07-25'
+method: searched
+source: openapi/telia-lso-sonata-site-management.yml
+docs: https://tunnistus.telia.fi/.well-known/openid-configuration
+notes: >-
+  Telia publishes almost no scope vocabulary. The LSO Sonata specification
+  declares two oauth2 clientCredentials schemes with EMPTY scopes maps, so
+  authorization on that surface is a function of the commercial entitlement
+  attached to the client id rather than of any scope the caller can request. The
+  only scopes published anywhere on Telia's estate are the two advertised by the
+  Telia Tunnistus identification broker's OIDC discovery document. No scopes or
+  permissions reference page was found on developer.teliacompany.io,
+  lso.teliacompany.com, camara.teliacompany.com or developer.telia.fi.
+schemes:
+- name: prodBearerAuth
+  source: openapi/telia-lso-sonata-site-management.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api-garden.teliacompany.com/v4/oauth/client_credential/accesstoken
+  description: Token endpoint for the production environment
+  scopes_declared: 0
+- name: testBearerAuth
+  source: openapi/telia-lso-sonata-site-management.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api-garden-test.teliacompany.com/v4/oauth/client_credential/accesstoken
+  description: Token endpoint for all test environments
+  scopes_declared: 0
+- name: tunnistusOidc
+  source: https://tunnistus.telia.fi/.well-known/openid-configuration
+  local_copy: well-known/telia-openid-configuration.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://tunnistus.telia.fi/uas/oauth2/authorization
+    tokenUrl: https://tunnistus.telia.fi/uas/oauth2/token
+  - flow: clientCredentials
+    tokenUrl: https://tunnistus.telia.fi/uas/oauth2/token
+  description: Telia Tunnistus identification broker (Telia Finland strong
+    electronic identification)
+  scopes_declared: 2
+scopes:
+- scope: openid
+  description: Standard OpenID Connect scope; requests an ID token from the Telia
+    Tunnistus identification broker.
+  flows:
+  - authorizationCode
+  sources:
+  - https://tunnistus.telia.fi/.well-known/openid-configuration
+- scope: userinfo
+  description: Grants access to the Tunnistus userinfo endpoint
+    (https://tunnistus.telia.fi/uas/oauth2/userinfo) for the identified subject.
+  flows:
+  - authorizationCode
+  sources:
+  - https://tunnistus.telia.fi/.well-known/openid-configuration
+gaps:
+- No CAMARA scope vocabulary is published; CAMARA APIs normally define
+  purpose-bound scopes such as qod or device-location, and none is discoverable
+  on Telia's CAMARA portal.
+- The LSO Sonata oauth2 schemes declare no scopes at all.
+- The Bulk Messaging APIs use HTTP Basic and have no scope model.

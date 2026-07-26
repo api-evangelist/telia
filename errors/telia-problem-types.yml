@@ -1,0 +1,75 @@
+generated: '2026-07-25'
+method: derived
+source: openapi/telia-lso-sonata-site-management.yml
+format: tmforum-error
+format_note: >-
+  Not RFC 9457. The LSO Sonata error envelope is the TM Forum / MEF error object
+  - a JSON object with required "code" and "reason" plus an optional free-text
+  "message" - served as application/json, never application/problem+json. Both
+  published operations return the same six error shapes.
+envelope:
+  media_type: application/json
+  required:
+  - code
+  - reason
+  optional:
+  - message
+problems:
+- status: 400
+  type: Error400
+  title: Bad Request
+  detail_example: Mandatory field siteId is missing from path parameters
+  source_operations:
+  - openapi/telia-lso-sonata-site-management.yml#listGeographicSite
+  - openapi/telia-lso-sonata-site-management.yml#retrieveGeographicSite
+  remediation: Supply every mandatory path and query parameter; country must be one
+    of the enumerated Telia LSO country codes.
+- status: 401
+  type: Error401
+  title: Unauthorized
+  detail_example: Error while authenticating TMF
+  source_operations:
+  - openapi/telia-lso-sonata-site-management.yml#listGeographicSite
+  - openapi/telia-lso-sonata-site-management.yml#retrieveGeographicSite
+  remediation: Request a fresh bearer token from the client-credential token
+    endpoint for the environment you are calling (production or test).
+- status: 403
+  type: Error403
+  title: Forbidden
+  detail_example: Access to the requested resource is denied
+  source_operations:
+  - openapi/telia-lso-sonata-site-management.yml#listGeographicSite
+  - openapi/telia-lso-sonata-site-management.yml#retrieveGeographicSite
+  remediation: The token is valid but the buyer is not entitled to that country or
+    product; entitlement is granted through the Telia commercial agreement.
+- status: 404
+  type: Error404
+  title: Not Found
+  detail_example: Site not found
+  source_operations:
+  - openapi/telia-lso-sonata-site-management.yml#retrieveGeographicSite
+  remediation: Verify the geographic site identifier, and that it belongs to the
+    country segment in the path.
+- status: 500
+  type: Error500
+  title: Internal Server Error
+  detail_example: Error occurred while calling the API
+  source_operations:
+  - openapi/telia-lso-sonata-site-management.yml#listGeographicSite
+  - openapi/telia-lso-sonata-site-management.yml#retrieveGeographicSite
+  remediation: Retry with backoff; escalate to mef-lso.team@teliacompanyspace.onmicrosoft.com
+    if persistent.
+- status: 503
+  type: Error503
+  title: Service Unavailable
+  detail_example: Service Unavailable
+  source_operations:
+  - openapi/telia-lso-sonata-site-management.yml#listGeographicSite
+  - openapi/telia-lso-sonata-site-management.yml#retrieveGeographicSite
+  remediation: Retry with backoff; the seller system is temporarily unavailable.
+coverage:
+  operations_analysed: 2
+  distinct_problem_types: 6
+  operations_without_4xx: 0
+see_also:
+- errors/telia-error-codes.yml

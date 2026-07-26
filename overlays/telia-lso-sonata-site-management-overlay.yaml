@@ -1,0 +1,73 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Telia LSO Sonata Geographic Site Management
+  version: 1.0.0
+extends: openapi/telia-lso-sonata-site-management.yml
+x-apievangelist:
+  generated: '2026-07-25'
+  method: generated
+  source: openapi/telia-lso-sonata-site-management.yml
+  note: >-
+    Captures API Evangelist's enhancements as an Overlay so the harvested Telia
+    specification is never mutated. The findings below are observations about the
+    published spec, not corrections applied to Telia's own document.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: telia
+    x-apievangelist-harvested: '2026-07-25'
+    x-apievangelist-source: https://lso.teliacompany.com/portals/api/sites/teliacompany-lso/liveportal/apis/b2xglobalsitemanagementapiv1product/download_spec
+    x-apievangelist-access: >-
+      Anonymously downloadable - the only Telia specification that is. Calling it
+      still requires an existing Telia commercial agreement and portal approval.
+    x-apievangelist-standards:
+    - MEF 122
+    - MEF 79
+    - TM Forum TMF674 v4.0.0
+- target: $.info
+  update:
+    x-apievangelist-artifacts:
+      authentication: authentication/telia-authentication.yml
+      scopes: scopes/telia-scopes.yml
+      conventions: conventions/telia-conventions.yml
+      errors: errors/telia-problem-types.yml
+      data_model: data-model/telia-data-model.yml
+      lifecycle: lifecycle/telia-lifecycle.yml
+      sandbox: sandbox/telia-sandbox.yml
+      conformance: conformance/telia-conformance.yml
+      agentic_access: agentic-access/telia-agentic-access.yml
+- target: $.paths['/{country}/geographicSite'].get
+  update:
+    x-apievangelist-agentic-access:
+      action-class: connected
+      consequence: read
+    x-apievangelist-note: >-
+      No pagination parameters are declared; a caller cannot bound or page a
+      country-wide site list from the contract alone.
+- target: $.paths['/{country}/geographicSite/{id}'].get
+  update:
+    x-apievangelist-agentic-access:
+      action-class: connected
+      consequence: read
+    x-apievangelist-note: >-
+      The detail projection identifies a site with an integer id while the list
+      projection returns a string id; clients must not assume the two are the
+      same type.
+- target: $.components.securitySchemes.prodBearerAuth
+  update:
+    x-apievangelist-note: >-
+      oauth2 clientCredentials with an EMPTY scopes map - the contract grants no
+      scope vocabulary, so authorization is entirely a function of the commercial
+      entitlement attached to the client id.
+- target: $.components.securitySchemes.testBearerAuth
+  update:
+    x-apievangelist-note: >-
+      One token endpoint serves all test environments; the sandbox server runs on
+      the PRODUCTION host under a /sandbox path and therefore uses the production
+      token endpoint.
+- target: $.components.schemas.GeographicSite
+  update:
+    x-apievangelist-note: >-
+      Field names additionnalSiteInformation and geographicSubAdress carry
+      spelling errors inherited from the MEF source document; they are the real
+      wire names and must be sent as-is.

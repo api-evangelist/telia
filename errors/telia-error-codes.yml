@@ -1,0 +1,65 @@
+generated: '2026-07-25'
+method: searched
+source: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+notes: >-
+  The non-HTTP error registry for Telia's Bulk Messaging platform. Telia states
+  the SMPP API uses the standard SMPP 3.4 command_status codes (defined at
+  smpp.org, not reproduced here) and adds three vendor-specific command status
+  codes of its own, published in the implementation guide. These three are the
+  only Telia-defined error codes on any openly documented surface. This is the
+  non-payments sibling of a decline-code catalog - Telia is not a payments
+  provider, so errors/<slug>-decline-codes.yml does not apply.
+surfaces:
+- surface: SMPP API
+  scheme: SMPP 3.4 command_status
+  standard_codes: https://smpp.org
+  vendor_specific: true
+- surface: SMS REST API
+  scheme: HTTP status codes
+  note: the guide documents no REST error-code table; Telia states the error
+    contract lives in the OpenAPI definition hosted behind the Bulk Messaging
+    portal login
+- surface: ACE Knowledge contact-method webhook
+  scheme: HTTP status codes
+  note: any failure between ACE Knowledge and the external web service surfaces as
+    HTTP 500 on the original ACE Knowledge request, with a debugging message;
+    the external service has a hard 15-second budget before timeout
+error_codes:
+- code: 1040
+  hex: '0x00000410'
+  surface: SMPP
+  class: vendor-specific command_status
+  meaning: The specified sender ID is reserved and not authorized for use by this
+    service.
+  action: Use an access number or alphanumeric sender ID permitted by the addressing
+    policy configured for the service, or request Sender ID Protection
+    authorisation from Telia Bulk Messaging Support.
+- code: 1041
+  hex: '0x00000411'
+  surface: SMPP
+  class: vendor-specific command_status
+  meaning: Traffic quota limit exceeded. The request was rejected because a traffic
+    quota limit has been exceeded (daily or monthly, all traffic or foreign
+    traffic).
+  action: Stop submitting until the quota window resets, or contact Telia Bulk
+    Messaging Support to raise the quota.
+- code: 1042
+  hex: '0x00000412'
+  surface: SMPP
+  class: vendor-specific command_status
+  meaning: Traffic is blocked. The request was rejected because traffic is not
+    allowed (applies to all traffic or specifically to foreign traffic).
+  action: Contact Telia Bulk Messaging Support; the block is a service configuration,
+    not a transient condition.
+silent_failures:
+- surface: Bulk Messaging
+  condition: message uses a blacklisted alias/look-alike sender ID under Sender ID
+    Protection
+  behaviour: the API returns OK but the message is blocked and still charged; it
+    appears on a separate invoice line
+  note: published by Telia as a deliberate behaviour - a success response is not
+    proof of delivery
+tlv:
+  network_error_codes: true
+  note: the SMPP API supports the Network Error Code TLV, which carries the
+    underlying network failure reason on deliver_sm delivery reports

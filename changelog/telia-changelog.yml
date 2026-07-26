@@ -1,0 +1,76 @@
+generated: '2026-07-25'
+method: searched
+source: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+notes: >-
+  Telia publishes no platform-wide API changelog. The only dated, anonymously
+  readable change history on its developer surface is the revision table of the
+  Bulk Messaging Implementation Guide, which is a genuine document changelog -
+  each entry names the API change it documents. Recorded verbatim below, newest
+  first. A second, machine-readable release cadence exists on npm for the ACE
+  Knowledge Widget packages and is summarised under package_releases.
+scheme: document-revision
+current_version: v1.5
+current_date: '2026-05-18'
+document: Telia Company Bulk Messaging Implementation Guide
+last_updated: '2026-05-19'
+entries:
+- version: v1.5
+  date: '2026-05-18'
+  breaking: false
+  highlights:
+  - Added SMS routing and pricing section with on-net and off-net traffic
+    classification per country (Sweden and Norway network operator codes).
+- version: v1.4
+  date: '2026-03-25'
+  breaking: false
+  additions:
+  - Vendor specific command status code 1041 (traffic quota exceeded).
+  - Vendor specific command status code 1042 (traffic blocked).
+- version: v1.3
+  date: '2026-02-06'
+  breaking: false
+  additions:
+  - Vendor specific error code for the SMPP API.
+  removals:
+  - REST API launch date information.
+- version: v1.2
+  date: '2025-12-17'
+  breaking: false
+  highlights:
+  - Changed order for SMPP and REST API sections.
+- version: v1.1
+  date: '2024-10-17'
+  breaking: false
+  highlights:
+  - Updated TLS documentation for SMPP.
+- version: v1.0
+  date: '2024-09-18'
+  breaking: false
+  highlights:
+  - First version.
+package_releases:
+  registry: npm
+  scope: '@telia-ace'
+  note: the ACE Knowledge Widget packages ship a synchronised version line across
+    ~20 packages; no release notes are published with them
+  recent:
+  - version: 1.3.48
+    date: '2026-07-13'
+    packages: widget-core, widget-ui, widget-services, widget-conversation,
+      widget-plugins, widget-forms, widget-routing, widget-utilities,
+      knowledge-data-client, knowledge-widget-*
+  - version: 1.1.141
+    date: '2026-07-01'
+    packages: widget-site, widget-core-flamingo, widget-conversation-flamingo,
+      widget-conversational-hub, widget-side-menu
+  - version: 4.0.2
+    date: '2025-11-06'
+    packages: alliance-framework, alliance-ui, alliance-utilities, alliance-cli,
+      alliance-data, alliance-portal
+not_found:
+- a dated changelog on developer.teliacompany.io
+- a dated changelog on lso.teliacompany.com, camara.teliacompany.com or
+  developer.telia.fi (the Apigee portals expose release CATEGORIES, not dated
+  entries)
+- ACE product release notes; docs.ace.teliacompany.com publishes release-note PDFs
+  per major version but every deep link now redirects to the host home page

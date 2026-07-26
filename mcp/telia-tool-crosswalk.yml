@@ -1,0 +1,66 @@
+generated: '2026-07-25'
+method: derived
+source: mcp/telia-mcp.yml + openapi/telia-lso-sonata-site-management.yml
+status: candidate
+notes: >-
+  Telia operates no MCP server and no GraphQL surface (the Apigee portals report
+  graphqlSchema null for every catalogued API), so this crosswalk binds the
+  DERIVED candidate MCP tools to the real OpenAPI operations they would be built
+  from. Confidence is high because each tool was generated one-to-one from the
+  operation, and each tool therefore inherits that operation's parameters as its
+  real inputSchema. There is nothing to reconcile on the mcp_only side; the
+  divergence worth recording is the other way round - most of Telia's API estate
+  (CAMARA, the other five LSO Sonata APIs, the Telia Finland Mobile APIs, the
+  Bulk Messaging REST APIs) has no anonymously retrievable OpenAPI at all, so it
+  cannot be crosswalked from either direction.
+surfaces:
+  openapi:
+    file: openapi/telia-lso-sonata-site-management.yml
+    operations: 2
+    gated: false
+    note: the only Telia OpenAPI downloadable without a portal login
+  graphql:
+    endpoint: null
+    gated: null
+    note: none published; Apigee catalogs report graphqlSchema null
+  mcp:
+    url: null
+    gated: null
+    note: no server exists; tools/list could not be probed
+crosswalk:
+- tool: list_geographic_sites
+  category: site-management
+  rest:
+  - listGeographicSite
+  binding: rest
+  confidence: high
+  note: inputSchema is the operation's parameters - country (path, enum of Telia
+    LSO countries) plus the site filter query parameters
+- tool: retrieve_geographic_site
+  category: site-management
+  rest:
+  - retrieveGeographicSite
+  binding: rest
+  confidence: high
+  note: inputSchema is the operation's parameters - country (path) and id (path)
+mcp_only: []
+rest_only: []
+uncrosswalkable:
+- surface: LSO Sonata Geographic Address, Product Offering Qualification, Quote,
+    Order and Notification APIs
+  reason: specifications are behind Apigee portal sign-in that requires an existing
+    Telia commercial agreement
+- surface: CAMARA Quality on Demand, Device Location, NGMLC Location
+  reason: the anonymous CAMARA portal catalog returns zero API documents
+- surface: Telia Finland Catalogue, Mobile Subscription and Mobile Subscription
+    Order Service APIs
+  reason: the anonymous Telia Finland portal catalog returns zero API documents
+- surface: Bulk Messaging SMS REST and SMS Callback APIs
+  reason: Telia states the OpenAPI definitions exist but hosts them in the Bulk
+    Messaging portal Documents section behind a login
+coverage:
+  tools_named: 2
+  tools_bound: 2
+  mcp_only: 0
+  rest_operations_total: 2
+  rest_operations_with_tool: 2

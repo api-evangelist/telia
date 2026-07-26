@@ -1,0 +1,27 @@
+generated: '2026-07-25'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.teliacompany.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Sep 29 10:14:19 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: lso.teliacompany.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Oct 15 09:31:57 2026 GMT
+  hsts: null
+- host: api-garden.teliacompany.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Sep 15 12:00:23 2026 GMT
+  hsts: null
+domains:
+- domain: teliacompany.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

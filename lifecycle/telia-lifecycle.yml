@@ -1,0 +1,84 @@
+generated: '2026-07-25'
+method: searched
+source: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+notes: >-
+  Telia publishes no API deprecation policy, no Sunset/Deprecation header support
+  and no SLA document on any anonymously reachable surface. What it does publish
+  is per-surface versioning and real operational status pages for the underlying
+  networks. Recorded honestly: absence is data.
+versioning:
+  scheme: uri-path
+  surfaces:
+  - surface: Bulk Messaging SMS REST API
+    current: v2
+    base_url: https://api.messaging.teliacompany.com/sms/rest/v2
+  - surface: LSO Sonata Geographic Site Management
+    current: v1
+    spec_version: 1.0.1
+    base_url: https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement
+    release_trains:
+    - Haley Release
+    - R3 Release V1
+    - Dolly Release V3
+    - Sandbox
+    note: the LSO portal groups APIs into named release categories rather than
+      semantic versions
+  - surface: SMPP API
+    current: SMPP 3.4 (interface_version 0x34)
+  - surface: ACE Knowledge REST API
+    current: valid for widget V1-V4; widget runtime V5 documented separately
+  - surface: ACE Knowledge Widgets (npm)
+    current: 1.3.48
+    published: '2026-07-13'
+  - surface: Telia ACE product
+    note: documentation is published per product major version (15.0, 19.0, 21.0,
+      31) at docs.ace.teliacompany.com; that host currently redirects every
+      deep link to its home page
+  document_versioning:
+    bulk_messaging_guide: v1.5
+    dated: '2026-05-18'
+    revision_table: true
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  evidence: no deprecation or sunset policy found on developer.teliacompany.io,
+    lso.teliacompany.com, camara.teliacompany.com, developer.telia.fi or the Bulk
+    Messaging implementation guide
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No published API SLA. Commercial terms are per-API and per-agreement - the
+    Telia Developer's Toolbox terms of use state "Fees are connected to
+    individual APIs and before usage of an API you will have to enter a separate
+    agreement regarding fees for that particular API."
+status_page: https://www.telia.se/support/driftinformation-mobilt
+status_pages:
+- url: https://www.telia.se/support/driftinformation-mobilt
+  scope: Telia Sweden mobile network operational status and incident history
+  verified: HTTP 200 (nonsense paths on the same host return HTTP 404)
+- url: https://www.telia.se/foretag/support/driftinformation
+  scope: Telia Sweden business services operational status, filterable by service
+    category
+  verified: HTTP 200
+status_page_note: >-
+  These are network/service status pages for the underlying connectivity
+  products, not a developer-platform status page. No status page exists for the
+  LSO Sonata, CAMARA, Telia Finland or Bulk Messaging API surfaces.
+maintenance:
+  smpp_patching: >-
+    Telia publishes its maintenance protocol for SMPP - the SMSC initiates a
+    graceful unbind, the ESME must acknowledge and immediately re-bind, and
+    during maintenance windows unbinds are staggered between sessions to
+    minimise ESME downtime. Customers can also trigger a graceful unbind
+    themselves from the Bulk Messaging portal.
+deprecated_operations: []
+support_contacts:
+- surface: LSO Sonata
+  contact: mef-lso.team@teliacompanyspace.onmicrosoft.com
+- surface: CAMARA
+  contact: camara@teliacompany.com
+- surface: security incidents and vulnerabilities
+  contact: cert@teliacompany.com

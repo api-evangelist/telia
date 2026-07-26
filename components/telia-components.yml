@@ -1,0 +1,122 @@
+generated: '2026-07-25'
+method: searched
+source: https://github.com/telia-oss/ace-widgets
+notes: >-
+  Telia's richest openly documented developer surface is not an API at all - it
+  is the ACE Knowledge Widgets component library, a set of embeddable
+  client-side components for self-service and conversational customer support,
+  documented publicly on GitHub and shipped as versioned npm packages. Two Telia
+  design systems are also published openly. None of this requires a Telia
+  commercial agreement to read, which makes it the opposite of the rest of the
+  estate.
+families:
+- family: ACE Knowledge Widgets
+  runtime_version: 5
+  docs: https://github.com/telia-oss/ace-widgets
+  legacy_docs: https://github.com/telia-oss/ace-knowledge-docs
+  hosting:
+  - cloud-hosted by ACE Knowledge (default)
+  - self-hosted (boilerplate at https://github.com/telia-oss/ace-one-widget-self-hosting)
+  loader_packages:
+  - '@telia-ace/widget-core'
+  - '@telia-ace/widget-ui'
+  - '@telia-ace/widget-services'
+  - '@telia-ace/widget-plugins'
+  - '@telia-ace/widget-routing'
+  - '@telia-ace/widget-forms'
+  - '@telia-ace/widget-conversation'
+  - '@telia-ace/widget-tracking'
+  - '@telia-ace/widget-utilities'
+  - '@telia-ace/widget-types-grid'
+  core_apis:
+  - name: Orchestration API
+    docs: https://github.com/telia-oss/ace-widgets/blob/master/docs/orchestration.md
+  - name: Component API
+    docs: https://github.com/telia-oss/ace-widgets/blob/master/docs/component.md
+  other_apis:
+  - name: Conversation API
+    package: '@telia-ace/widget-conversation'
+  - name: Tracking API
+    package: '@telia-ace/widget-tracking'
+  - name: Service Client
+    package: '@telia-ace/knowledge-serviceclient'
+  - name: Storage API
+    package: '@telia-ace/widget-services'
+  configuration_schema: https://github.com/telia-oss/ace-widgets/blob/master/docs/configuration-schema.md
+  components:
+  - area
+  - back-link
+  - breadcrumbs
+  - close-button
+  - contact-link
+  - contact-list
+  - contact-method
+  - context-properties
+  - conversation
+  - conversation-return-button
+  - copyright
+  - embedded-widget
+  - generic-properties
+  - guide
+  - guide-category-browser
+  - guide-category-dropdown
+  - guide-category-list
+  - guide-category-tree
+  - guide-list
+  - header
+  - image-link
+  - notification-list
+  - notification-row
+  - related-guide-list
+  - related-tag-list
+  - search
+  - settings
+  - tab-stop
+  - tag-list
+  - widget-header
+  component_count: 30
+  widget_types:
+  - inline (view-based)
+  - floating (view-based)
+  - bot (conversational)
+- family: ACE Web SDK
+  docs: https://ace-showcase.com/marketplace/ace-web-api/
+  description: Browser-side SDK that fronts the ACE Web API for chat, callback,
+    queue status and opening hours on a customer's own website
+  loader_packages:
+  - '@telia-ace/websdk-chat-api'
+  - '@telia-ace/websdk-auth-token'
+  - '@telia-ace/websdk-overseer'
+  - '@telia-ace/websdk-insights'
+  - '@telia-ace/websdk-xd-storage'
+  - '@telia-ace/websdk-id-container'
+  - '@telia-ace/websdk-utilities'
+  - '@telia-ace/web-api'
+  plugins:
+  - '@telia-ace/widget-chat-plugin'
+  - '@telia-ace/widget-callback-plugin'
+  - '@telia-ace/widget-email-plugin'
+  - '@telia-ace/widget-phone-plugin'
+- family: Telia Global Design System
+  package: '@teliads/components'
+  repository: https://github.com/telia-company/design-system
+  license: MIT
+  version: 22.1.1
+  description: Global Design System component library.
+- family: Teddy (Telia Norway design system)
+  package: '@telia/teddy'
+  repository: https://github.com/telia-company/teddy
+  license: AGPL-3.0
+  version: 0.7.76
+  published: '2026-07-22'
+  description: Teddy - Telia Norway's design system.
+- family: Telia styleguide
+  package: '@telia/styleguide'
+  license: ISC
+  version: 1.57.66
+  description: React component library of the Atomic Design components in the Telia
+    styleguide.
+styling:
+  css_fundamentals: https://github.com/telia-oss/ace-widgets/blob/master/docs/styling
+  themes:
+  - theme-simple-dark.css

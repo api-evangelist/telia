@@ -1,0 +1,35 @@
+generated: '2026-07-25'
+method: generated
+source: openapi/telia-lso-sonata-site-management.yml +
+  https://cdn.messaging.teliacompany.com/documents/developer/index.html
+notes: >-
+  Telia publishes no AGENTS.md and no provider-authored agent skills (searched
+  github.com/telia-oss, the npm @telia-ace scope and all four developer portals).
+  These two skills are generated from the artifacts in this repo and cover the
+  only two Telia surfaces an agent can actually operate against - the one
+  anonymously downloadable OpenAPI, and the openly documented Bulk Messaging
+  REST/SMPP surface. Every step is grounded in a real operationId or a real
+  documented endpoint; nothing is invented.
+skills:
+- file: telia-lso-site-lookup.md
+  name: Look up a Telia LSO Sonata geographic site
+  api: openapi/telia-lso-sonata-site-management.yml
+  operations:
+  - listGeographicSite
+  - retrieveGeographicSite
+  grounding: openapi
+- file: telia-send-bulk-sms.md
+  name: Send an SMS through Telia Bulk Messaging
+  api: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+  operations:
+  - POST /messages
+  - POST /content
+  - Receive SMS (MO callback)
+  - Receive delivery report (DLR callback)
+  grounding: published implementation guide (OpenAPI is portal-gated)
+not_covered:
+- CAMARA Quality on Demand / Device Location - no specification, endpoint or scope
+  is retrievable anonymously
+- LSO Sonata quote, order, POQ, address and notification APIs - specifications
+  behind portal sign-in
+- Telia Finland Mobile APIs - anonymous catalog returns zero documents
