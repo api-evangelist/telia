@@ -1,0 +1,117 @@
+syntax = "proto3";
+package ace.audio_stream_forwarding.v1;
+
+service AudioStreamForwarding {
+  rpc AudioStreamForward(stream AudioStreamForwardRequest)
+      returns (stream AudioStreamForwardResponse) {}
+}
+
+message AudioStreamForwardRequest {
+  oneof request {
+    // Handshake, used to initialize a new audio stream forwarding session.
+    // MUST be the first message sent by the client.
+    // MUST NOT be sent after the first message.
+    InitRequest init_request = 1;
+    // Continuous audio stream data messages.
+    // MUST NOT be sent before InitRequest.
+    AudioDataRequest audio_data_request = 2;
+    // Status updates for the audio stream forwarding session.
+    StatusRequest status_request = 3;
+  }
+
+  // Handshake, used to initialize a new contact audio streaming session
+  message InitRequest {
+    ContactIdData contact_id_data = 1;
+    AudioConfig audio_config = 2;
+    // Participants in the session - also defines the audio channel order
+    repeated Participant participants = 3;
+    // Map containing ACE contact data as key-value pairs
+    map<string, string> contact_data = 32;
+  }
+
+  // Continuous audio stream data messages
+  message AudioDataRequest {
+    bytes audio_data = 32;
+  }
+
+  message StatusRequest {
+    // Status of the audio stream forwarding session
+    Status status = 1;
+    // Optional reason for status change
+    string reason = 2;
+
+    enum Status {
+      STATUS_UNSPECIFIED = 0;
+      // The audio stream forwarding session is active - default status
+      STATUS_ACTIVE = 1;
+      // The audio stream forwarding session is paused
+      STATUS_PAUSED = 2;
+      // The audio stream forwarding session completed successfully
+      STATUS_COMPLETED = 3;
+      // The audio stream forwarding session failed due to an error
+      STATUS_FAILED = 4;
+    }
+  }
+}
+
+message AudioStreamForwardResponse {
+  oneof response {
+    // Response to the InitRequest, used to acknowledge the initialization of a
+    // new audio stream forwarding session MUST be the first message sent by the
+    // server in response to InitRequest MUST NOT be sent after the first
+    // message
+    InitResponse init_response = 1;
+  }
+
+  // Response to the InitRequest, used to acknowledge the initialization of a
+  // new audio stream forwarding session
+  message InitResponse {
+    InitStatus status = 1;
+
+    enum InitStatus {
+      INIT_STATUS_UNSPECIFIED = 0;
+      // Client should start streaming audio
+      INIT_STATUS_OK = 1;
+      // Client should NOT start streaming audio
+      INIT_STATUS_REJECTED = 2;
+    }
+  }
+}
+
+// ContactIdData contains identifiers for the contact in ACE
+message ContactIdData {
+  // Per-tenant unique identifier for the contact in ACE
+  string contact_id = 1;
+  // System-wide unique identifier for the contact in ACE
+  string contact_guid = 2;
+}
+
+// AudioConfig contains audio configuration for the audio stream
+message AudioConfig {
+  // Audio encoding of the audio data
+  AudioEncoding audio_encoding = 1;
+  // Sample rate of the audio data
+  uint32 sample_rate_hertz = 2;
+}
+
+// AudioEncoding defines the audio encoding used in the audio stream
+enum AudioEncoding {
+  AUDIO_ENCODING_UNSPECIFIED = 0;
+  // 16-bit signed little-endian linear PCM, pcm_s16le. Sample-wise interleaved
+  // channels.
+  AUDIO_ENCODING_LINEAR16 = 1;
+}
+
+// Participant represents a participant in the audio stream forwarding session
+message Participant {
+  oneof participant {
+    Agent agent = 1;
+    Customer customer = 2;
+  }
+
+  message Agent {
+    string agent_name = 1;
+  }
+
+  message Customer {}
+}

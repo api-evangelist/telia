@@ -1,0 +1,320 @@
+aid: telia
+name: Telia Company
+review:
+  question: Does Telia Company expose a real, self-serve public developer surface, and
+    what is its CAMARA / GSMA Open Gateway posture?
+  answer: partial
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: Sweden
+  tier: mno-carrier
+  gated: true
+findings:
+  summary: |
+    Telia Company runs a genuine first-party developer hub, but almost everything
+    behind it is partner-gated. https://developer.teliacompany.io/ returns HTTP 200
+    and is a real Telia-built site (React, Telia Purpur design system) whose
+    "Available APIs" section lists exactly two programmes: LSO Sonata APIs and
+    CAMARA APIs. Both link to Apigee Integrated Portals.
+
+    Both portals are readable anonymously at the page level and both publish a
+    "Getting Started" that states the gate plainly: you must already have an
+    agreement with Telia, your corporate email domain must be whitelisted, your
+    account must be manually approved by a support team, and your registered app
+    must then be approved again before you can consume anything. The Terms of Use
+    embedded in the developer hub add that "Fees are connected to individual APIs
+    and before usage of an API you will have to enter a separate agreement
+    regarding fees for that particular API." This is a sales-led, contract-first
+    posture, not self-serve.
+
+    Across the entire estate exactly ONE OpenAPI definition was downloadable
+    anonymously: the LSO Sonata Geographic Site Management API. Everything else —
+    including every CAMARA API — returns an empty catalog to an unauthenticated
+    caller.
+  developerPortal:
+    url: https://developer.teliacompany.io/
+    httpStatus: 200
+    verdict: real first-party developer hub, but an index page only — it links out to
+      two gated Apigee catalogs and hosts no specifications itself
+    selfServe: false
+  portalsProbed:
+  - url: https://developer.teliacompany.io/
+    httpStatus: 200
+    note: Telia Developer Portal. SPA. "Available APIs" lists LSO Sonata APIs and
+      CAMARA APIs only. Also carries "TELIA DEVELOPER'S TOOLBOX — TERMS OF USE".
+  - url: https://camara.teliacompany.com/
+    httpStatus: 200
+    note: Apigee Integrated Portal, siteId teliacompany-camara. Anonymous API catalog
+      (/portals/api/sites/teliacompany-camara/liveportal/apis) returns
+      an empty apiDocs array — ZERO documents. Categories present but empty to anonymous
+      callers - "Sandboxes", "CAMARA APIs". Support camara@teliacompany.com.
+  - url: https://lso.teliacompany.com/
+    httpStatus: 200
+    note: Apigee Integrated Portal, siteId teliacompany-lso. Anonymous catalog returns
+      exactly ONE apiDoc (B2X_Global_SiteManagement_API_v1, anonAllowed true).
+      Release categories - Haley Release, R3 Release V1, Dolly Release V3, Sandbox.
+      Support mef-lso.team@teliacompanyspace.onmicrosoft.com.
+  - url: https://developer.telia.fi/
+    httpStatus: 200
+    note: Apigee Integrated Portal, siteId teliacompany-apifinland ("Telia Finland").
+      Anonymous catalog returns an empty apiDocs array — ZERO documents. Categories -
+      Mobile API, Telia Communication Manager, VIP. Home page names three Mobile APIs.
+  - url: https://teliacompany-dev-externaldevdemo.apigee.io/
+    httpStatus: 200
+    note: Telia's external developer DEMO Apigee portal, siteId
+      teliacompany-dev-externaldevdemo. Anonymous catalog empty. Categories -
+      R4 Release, Sandbox, R3 Release.
+  - url: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+    httpStatus: 200
+    note: Bulk Messaging Implementation Guide, v1.5 dated 2026-05-18. Fully public,
+      no login. Documents the SMPP API and the SMS REST API. The only substantive
+      openly readable API documentation Telia publishes.
+  - url: https://messaging.teliacompany.com/documents
+    httpStatus: 200
+    note: Bulk Messaging Web portal. React app behind a login. The guide states the
+      OpenAPI specifications for the SMS REST and SMS Callback APIs are hosted here
+      under Documents — they were NOT retrievable anonymously.
+  deadOrAbsentSubdomains:
+  - developer.teliacompany.com (DNS/connect failure)
+  - developers.teliacompany.com (DNS/connect failure)
+  - docs.teliacompany.com (DNS/connect failure)
+  - api.teliacompany.com (DNS/connect failure)
+  - opengateway.teliacompany.com (DNS/connect failure)
+  - developers.opengateway.teliacompany.com (DNS/connect failure)
+  - developer.telia.se / developers.telia.se / api.telia.se (DNS/connect failure)
+  - developer.telia.no / .dk / .lt / .ee (DNS/connect failure)
+  - api.teliaiot.com / developer.teliaiot.com (DNS/connect failure)
+  - docs.teliaiot.com (HTTP 401 — auth wall)
+  softNotRealPages:
+  - url: https://www.teliacompany.com/en/developer
+    httpStatus: 200
+    note: SOFT 404. www.teliacompany.com returns 200 for arbitrary paths (verified
+      with a nonsense URL); auto-titled from the slug. Same for /api and /opengateway.
+      Telia has no developer or Open Gateway page on its corporate site.
+  openapiHarvested:
+    count: 1
+    specs:
+    - file: openapi/telia-lso-sonata-site-management.yml
+      title: B2X-Global-SiteManagement-API-v1
+      version: 1.0.1
+      openapi: 3.0.2
+      sourceURL: https://lso.teliacompany.com/portals/api/sites/teliacompany-lso/liveportal/apis/b2xglobalsitemanagementapiv1product/download_spec
+      httpStatus: 200
+      fetchDate: '2026-07-25'
+      bytes: 19221
+      parses: true
+      paths: 2
+      operations:
+      - GET /{country}/geographicSite
+      - GET /{country}/geographicSite/{id}
+      servers:
+      - https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement (Production)
+      - https://api-garden-test.teliacompany.com/v1/api/mef/geographicSiteManagement (Test)
+      - https://api-garden.teliacompany.com/sandbox/v1/api/mef/geographicSiteManagement (Sandbox)
+      securitySchemes:
+      - prodBearerAuth
+      - testBearerAuth
+      standardsLineage: "This file forms part of MEF 122; implements business
+        requirements described in MEF 79; designed using TM Forum TMF674 as template."
+      license: Apache 2.0
+  protoHarvested:
+    count: 1
+    specs:
+    - file: proto/telia-ace-audio-stream-forwarding-v1.proto
+      package: ace.audio_stream_forwarding.v1
+      service: AudioStreamForwarding
+      rpc: AudioStreamForward (bidirectional stream)
+      sourceURL: https://raw.githubusercontent.com/telia-oss/ace-audio-stream-forwarding-api/main/proto/ace/audio_stream_forwarding/v1/audio_stream_forwarding.proto
+      httpStatus: 200
+      fetchDate: '2026-07-25'
+      bytes: 3535
+      auth: mutual TLS with client certificates
+  camaraPosture: >-
+    Branded CAMARA portal exists and is Open Gateway aligned, but nothing is callable
+    or downloadable anonymously — a shell in front of a commercial agreement.
+  camaraDetail: |
+    Telia operates a dedicated CAMARA portal at https://camara.teliacompany.com/
+    whose own copy states "GSMA Open Gateway represents a paradigm shift in how the
+    telecom industry designs and delivers services in an API economy world. It's a
+    framework of common network APIs designed to provide universal access to
+    operator networks for developers." That is first-party evidence of Open Gateway
+    alignment, and this is more than a press release — there is a real portal with
+    a real product catalog behind it.
+
+    But the developer-facing reality is thin. The portal's anonymous API catalog
+    endpoint returns an EMPTY apiDocs array. Not one CAMARA OpenAPI, endpoint,
+    scope or sandbox is reachable without an existing Telia commercial agreement
+    and a whitelisted corporate domain. The only public evidence of which CAMARA
+    APIs Telia exposes is the portal home page, which names three:
+      1. Quality on Demand API (CAMARA QoD)
+      2. Device Location API (CAMARA Device Location / Location Verification family)
+      3. NGMLC Location API (a GSMA/3GPP-lineage location exposure service, NOT a
+         CAMARA-defined API — recorded here for accuracy, excluded from camaraApis)
+    No Number Verification, SIM Swap, Device Status, Carrier Billing, KYC Match,
+    Scam Signal, Device Swap or Population Density API was found anywhere on
+    Telia's surface.
+  camaraApis:
+  - Quality on Demand (QoD)
+  - Device Location
+  openGatewayMember: true
+  openGatewayEvidence: >-
+    First-party — Telia's own CAMARA portal and developer hub describe the programme
+    as GSMA Open Gateway. GSMA's operator list page could not be fetched directly
+    (HTTP 403 to automated clients), so membership is recorded from Telia's own
+    published copy rather than from the GSMA roster.
+  adunaChannel: false
+  adunaNote: >-
+    Telia is not among the Aduna venture partners (América Móvil, AT&T, Bharti
+    Airtel, Deutsche Telekom, KDDI, Orange, Reliance Jio, Singtel, Telefónica,
+    Telstra, T-Mobile, Verizon, Vodafone, with Ericsson/Vonage). No Aduna reference
+    appears anywhere on Telia's developer surface.
+  channelToDevelopers: >-
+    Direct developer access is gated behind an existing Telia commercial agreement.
+    For network APIs specifically, Telia's public route to developers runs through
+    Nokia's Network as Code aggregator platform — Nokia and Telia Finland signed an
+    agreement covering Nokia 5G Core SaaS and Network as Code for the Sirius
+    programme, with Nokia supplying the SDKs and network APIs that expose
+    functionality in Telia's network. This is the sector's central pattern: the
+    carrier owns the rails, an aggregator owns the developer.
+  tmForumConformance:
+    certified: false
+    note: >-
+      No TM Forum Open API conformance certification was found for Telia. However,
+      TM Forum lineage is explicit and documented throughout the LSO Sonata
+      programme, which Telia states is "based on TMF and Mplify Alliance standards
+      and specifications". Per-API templates named on the public portal - TMF673
+      (Geographic Address), TMF674 (Geographic Site), TMF679 (Product Offering
+      Qualification), TMF648 (Quote), TMF622 (Product Order), plus a Notification
+      API. The harvested spec additionally cites MEF 122 and MEF 79. Design lineage
+      is real; certification is unevidenced.
+  threeGppExposure:
+    nefOrScef: false
+    note: >-
+      No NEF or SCEF surface is published. The NGMLC Location API named on the
+      CAMARA portal is a 3GPP-lineage location exposure service but no spec or
+      endpoint is public. 5G exposure reaches developers via Nokia 5G Core SaaS and
+      Network as Code (Telia Finland Sirius programme) rather than a Telia-operated
+      NEF API. No network-slicing or edge/MEC API was found.
+  authModel:
+    schemes:
+    - name: HTTP Basic
+      where: Bulk Messaging SMS REST API — credentials created in the Bulk Messaging
+        web portal
+      evidence: public implementation guide, cURL example
+    - name: Bearer token
+      where: LSO Sonata APIs — prodBearerAuth and testBearerAuth security schemes in
+        the harvested OpenAPI
+      evidence: harvested spec
+    - name: Mutual TLS (mTLS) with client certificates
+      where: Telia ACE Audio Stream Forwarding gRPC API
+      evidence: telia-oss GitHub README
+    - name: OAuth 2.0 / OpenID Connect
+      where: Telia Tunnistus identification broker, issuer https://tunnistus.telia.fi/uas
+      evidence: anonymous discovery document, HTTP 200
+    - name: IP allow-listing (ACL)
+      where: SMPP API — static source IPs must be whitelisted by Telia support
+      evidence: public implementation guide
+    ciba: false
+    cibaNote: >-
+      CIBA does NOT appear anywhere. The only anonymously served OpenID
+      configuration on Telia infrastructure (tunnistus.telia.fi) advertises
+      authorization_code, password, client_credentials, refresh_token, SAML2 bearer
+      and two GlobalSign OTP grants, and exposes NO backchannel_authentication_endpoint.
+      Since CAMARA specifies OIDC + CIBA for network-based authorization, the
+      absence is meaningful — no CIBA-capable authorization server is publicly
+      discoverable on Telia's estate.
+    wellKnownProbed:
+    - url: https://api-garden.teliacompany.com/.well-known/openid-configuration
+      httpStatus: 404
+    - url: https://api-garden.teliacompany.com/.well-known/oauth-authorization-server
+      httpStatus: 404
+    - url: https://tunnistus.telia.fi/.well-known/openid-configuration
+      httpStatus: 200
+  webhooksAndEvents:
+    present: true
+    note: >-
+      Two real event surfaces, neither described with AsyncAPI. (1) Bulk Messaging
+      SMS Callback API — the customer implements Receive SMS (mobile originated) and
+      Receive delivery report (DLR) endpoints that the Telia platform calls; the
+      implementation must match an OpenAPI spec Telia supplies through the gated
+      portal. (2) LSO Sonata Notification API — buyer registers a listener for quote
+      and order state-change, create-quote, attribute-change and BAFO notifications.
+      No AsyncAPI document is published for either.
+  graphql:
+    present: false
+    note: No /graphql surface was found; the Apigee portals report graphqlSchema null
+      for every catalogued API.
+  postman:
+    firstPartyWorkspace: false
+    note: >-
+      No first-party Telia Company Postman workspace. A public workspace exists under
+      the handle "teliaenxoo" (Telia Enxoo — a separate Salesforce-ecosystem vendor),
+      last updated 2021 with zero APIs; not counted.
+  sdks:
+    firstParty: false
+    note: >-
+      No first-party SDK packages found. npm scope "telia" returns zero packages. The
+      telia-oss GitHub organisation has 137 public repos but they are infrastructure
+      and open-source contributions (Terraform modules, Concourse tooling, forks) —
+      the only API-bearing repos are ace-audio-stream-forwarding-api (proto3 service
+      definition plus a sender simulator and example receiver, in Rust) and tunnistus
+      (integration guide PDFs and a Python sample).
+  transports:
+  - protocol: REST
+    scheme: https
+    baseURL: https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement
+    documented: true
+    note: LSO Sonata, from the one harvested OpenAPI.
+  - protocol: REST
+    scheme: https
+    baseURL: https://api.messaging.teliacompany.com/sms/rest/v2
+    documented: true
+    note: Bulk Messaging SMS REST API v2, HTTP Basic auth.
+  - protocol: SMPP
+    scheme: smpp+tls
+    baseURL: smpp://smpp.messaging.teliacompany.com:3550
+    documented: true
+    note: TLS 1.2 minimum, SNI required, static IP ACL whitelisting.
+  - protocol: gRPC
+    scheme: https
+    documented: true
+    note: Telia ACE Audio Stream Forwarding, bidirectional streaming over HTTP/2 with
+      mTLS. Endpoint is provided by the CUSTOMER — Telia connects outbound to it.
+  - protocol: GraphQL
+    documented: false
+    note: None found.
+  - protocol: WebSocket
+    documented: false
+    note: None found.
+sources:
+- url: https://developer.teliacompany.io/
+  type: DeveloperPortal
+  note: HTTP 200. Lists exactly two API programmes — LSO Sonata and CAMARA.
+- url: https://camara.teliacompany.com/
+  type: APIPortal
+  note: HTTP 200. Names Quality on Demand, Device Location, NGMLC Location. Anonymous
+    API catalog empty.
+- url: https://lso.teliacompany.com/
+  type: APIPortal
+  note: HTTP 200. Names six LSO Sonata APIs with their TM Forum templates. One spec
+    downloadable anonymously.
+- url: https://developer.telia.fi/
+  type: APIPortal
+  note: HTTP 200. Names three Telia Finland Mobile APIs. Anonymous API catalog empty.
+- url: https://cdn.messaging.teliacompany.com/documents/developer/index.html
+  type: Documentation
+  note: HTTP 200. Bulk Messaging Implementation Guide v1.5, 2026-05-18 — SMPP and SMS
+    REST detail, base URLs, auth, operations, error codes.
+- url: https://github.com/telia-oss/ace-audio-stream-forwarding-api
+  type: SourceCode
+  note: proto3 gRPC service definition, sender simulator, example receiver, mTLS.
+- url: https://github.com/telia-oss/tunnistus
+  type: Documentation
+  note: Telia Tunnistus / Telia ID Broker integration guides (PDF v2.29–v2.36).
+- url: https://tunnistus.telia.fi/.well-known/openid-configuration
+  type: OpenIDConnectDiscovery
+  note: HTTP 200, anonymous. No CIBA backchannel endpoint advertised.
+- url: https://www.nokia.com/about-us/news/releases/2023/12/12/nokia-5g-core-saas-and-network-as-code-platform-to-be-used-by-telia-finland-in-new-sirius-program/
+  type: PressRelease
+  note: Telia Finland Sirius programme uses Nokia 5G Core SaaS and Network as Code —
+    the aggregator channel through which Telia's network capability reaches developers.

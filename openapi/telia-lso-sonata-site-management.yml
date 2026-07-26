@@ -1,0 +1,622 @@
+openapi: 3.0.2
+x-project-id: B2X-Global-SiteManagement-API-v1
+info:
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
+  title: B2X-Global-SiteManagement-API-v1
+  description: |
+    **This file forms part of MEF 122**
+
+    This API implements Business Requirements described in MEF 79
+
+    It allows to retrieve a list of Geographic Sites and to get all
+    information for one geographic site.
+
+    List of supported Use Cases:
+
+    - Retrieve Service Site List
+    - Retrieve Service Site by Identifier
+
+    Copyright 2021 MEF Forum and its contributors
+
+    This file includes content based on the TM Forum Geographic Site API (TMF674
+    v4.0.0) available at https://github.com/tmforum-apis/TMF674_GeographicSite,
+    which is licensed by the TM Forum under the Apache License version 2.0. Such
+    content has been modified by the MEF Forum and its contributors.
+servers:
+  - url: https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement
+    description: Production
+  - url: https://api-garden-test.teliacompany.com/v1/api/mef/geographicSiteManagement
+    description: Test
+  - url: https://api-garden.teliacompany.com/sandbox/v1/api/mef/geographicSiteManagement
+    description: Sandbox
+security:
+  - prodBearerAuth: []
+  - testBearerAuth: []
+tags:
+  - name: listGeographicSite
+    description: Retrieves a list of geographic sites based on the provided site id or other fields.
+  - name: retrieveGeographicSite
+    description: Retrieves detailed information for a specific geographic site using its ID.
+paths:
+  /{country}/geographicSite:
+    get:
+      operationId: listGeographicSite
+      summary: List geographic sites by site id or other parameters
+      description: >
+        Retrieves a list of geographic sites based on the provided site id or other fields.
+      tags:
+        - listGeographicSite
+      parameters:
+        - name: country
+          in: path
+          required: true
+          description: Country selector for the address operation.
+          schema:
+            type: string
+            enum:
+              - se
+              - fi
+              - global
+          examples:
+            Sweden:
+              summary: Sweden
+              value: se
+            Finland:
+              summary: Finland
+              value: fi
+            Global:
+              summary: Global
+              value: global
+        - name: geographicAddress.id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Unique identifier of the geographic address.
+        - name: geographicAddress.streetName
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Street name of the geographic site.
+        - name: geographicAddress.streetNr
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Street number of the geographic site.
+        - name: geographicAddress.city
+          in: query
+          required: false
+          schema:
+            type: string
+          description: City of the geographic site.
+        - name: geographicAddress.country
+          in: query
+          required: true
+          schema:
+            type: string
+          description: ISO country code of the geographic address, for example SE.
+      responses:
+        "200":
+          description: Successful retrieval of site list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GeographicSiteSummary"
+              examples:
+                FindSiteByAddressId:
+                  summary: Find Site using geographicAddress.id
+                  value:
+                    - id: "105839411"
+                      siteCompanyName: "Telia"
+                      status: "EXISTING"
+                      geographicAddress:
+                        streetNr: "10"
+                        streetName: "KRISTINAGATAN"
+                        city: "NORRKÖPING"
+                        postcode: "60226"
+                        country: "SE"
+                FindSiteByAddressFields:
+                  summary: Find Site using address fields
+                  value:
+                    - id: "105839420"
+                      siteCompanyName: "Telia"
+                      status: "EXISTING"
+                      geographicAddress:
+                        streetNr: "20"
+                        streetName: "KRISTINAGATAN"
+                        city: "NORRKÖPING"
+                        postcode: "60226"
+                        country: "SE"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error400"
+              examples:
+                BadRequestExample:
+                  summary: Example bad request error
+                  value:
+                    code: "400"
+                    reason: "Bad Request"
+                    message: "Mandatory field siteId is missing from path parameters"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error401"
+              examples:
+                UnauthorizedExample:
+                  summary: Example unauthorized error
+                  value:
+                    code: "401"
+                    reason: "Unauthorized"
+                    message: "Error while authenticating TMF"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error403"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error404"
+              examples:
+                NotFoundExample:
+                  summary: Example not found error
+                  value:
+                    code: "404"
+                    reason: "Not Found"
+                    message: "Site not found"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error500"
+              examples:
+                InternalServerErrorExample:
+                  summary: Example internal server error
+                  value:
+                    code: "500"
+                    reason: "Internal Server Error"
+                    message: "Error occurred while calling the API"
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error503"
+              examples:
+                ServiceUnavailableExample:
+                  summary: Example service unavailable error
+                  value:
+                    code: "503"
+                    reason: "Service Unavailable"
+                    message: "Service Unavailable"
+  /{country}/geographicSite/{id}:
+    get:
+      operationId: retrieveGeographicSite
+      summary: Retrieve geographic site by ID
+      description: >
+        Retrieves detailed information for a specific geographic site using its ID.
+      tags:
+        - retrieveGeographicSite
+      parameters:
+        - name: country
+          in: path
+          required: true
+          description: Country selector for the address operation.
+          schema:
+            type: string
+            enum:
+              - se
+              - fi
+              - global
+          examples:
+            Sweden:
+              summary: Sweden
+              value: se
+            Finland:
+              summary: Finland
+              value: fi
+            Global:
+              summary: Global
+              value: global
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Unique identifier of the geographic site.
+      responses:
+        "200":
+          description: Successful retrieval of a site
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeographicSite"
+              examples:
+                GetSiteById:
+                  summary: Get Site Sweden by ID
+                  value:
+                    id: 105839411
+                    siteCompanyName: "Telia"
+                    additionnalSiteInformation: "{\"siteId\":\"N229 NTP 001\",\"category\":\"OnNet\"}"
+                    status: "EXISTING"
+                    fieldedAddress:
+                      id: 105839411
+                      streetNr: "10"
+                      streetName: "KRISTINAGATAN"
+                      postcode: "60226"
+                      city: "NORRKÖPING"
+                      stateOrProvince: "ÖSTERGÖTLANDS LÄN"
+                      country: "SE"
+                    geographicLocation:
+                      id: 105839411
+                      spatialRef: "WGS84"
+                      geographicPoint:
+                        - latitude: "58.591864"
+                          longitude: "16.190793"
+                    geographicSubAdress:
+                      - id: 105839411
+                        buildingName: "161614704"
+                        subUnit:
+                          - subUnitType: "business"
+                            subUnitIdentifier: "1302"
+                      - id: 105839411
+                        buildingName: "161304865"
+                        subUnit:
+                          - subUnitType: "flat"
+                            subUnitIdentifier: "1581110-2001"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error400"
+              examples:
+                BadRequestExample:
+                  summary: Example bad request error
+                  value:
+                    code: "400"
+                    reason: "Bad Request"
+                    message: "Mandatory field siteId is missing from path parameters"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error401"
+              examples:
+                UnauthorizedExample:
+                  summary: Example unauthorized error
+                  value:
+                    code: "401"
+                    reason: "Unauthorized"
+                    message: "Error while authenticating TMF"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error403"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error404"
+              examples:
+                NotFoundExample:
+                  summary: Example not found error
+                  value:
+                    code: "404"
+                    reason: "Not Found"
+                    message: "Site not found"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error500"
+              examples:
+                InternalServerErrorExample:
+                  summary: Example internal server error
+                  value:
+                    code: "500"
+                    reason: "Internal Server Error"
+                    message: "Error occurred while calling the API"
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error503"
+              examples:
+                ServiceUnavailableExample:
+                  summary: Example service unavailable error
+                  value:
+                    code: "503"
+                    reason: "Service Unavailable"
+                    message: "Service Unavailable"
+components:
+  schemas:
+    Error400:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "400"
+        reason:
+          type: string
+          example: "Bad Request"
+        message:
+          type: string
+          example: "Mandatory field siteId is missing from path parameters"
+      required:
+        - code
+        - reason
+    Error401:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "401"
+        reason:
+          type: string
+          example: "Unauthorized"
+        message:
+          type: string
+          example: "Error while authenticating TMF"
+      required:
+        - code
+        - reason
+    Error403:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "403"
+        reason:
+          type: string
+          example: "Forbidden"
+        message:
+          type: string
+          example: "Access to the requested resource is denied"
+      required:
+        - code
+        - reason
+    Error404:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "404"
+        reason:
+          type: string
+          example: "Not Found"
+        message:
+          type: string
+          example: "Site not found"
+      required:
+        - code
+        - reason
+    Error500:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "500"
+        reason:
+          type: string
+          example: "Internal Server Error"
+        message:
+          type: string
+          example: "Error occurred while calling the API"
+      required:
+        - code
+        - reason
+    Error503:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "503"
+        reason:
+          type: string
+          example: "Service Unavailable"
+        message:
+          type: string
+          example: "Service Unavailable"
+      required:
+        - code
+        - reason
+    GeographicSiteSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "105839411"
+        siteCompanyName:
+          type: string
+          example: "Telia"
+        status:
+          type: string
+          example: "EXISTING"
+        geographicAddress:
+          $ref: "#/components/schemas/GeographicAddress"
+      required:
+        - id
+        - siteCompanyName
+        - status
+        - geographicAddress
+      additionalProperties: false
+    GeographicSite:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 105839411
+        siteCompanyName:
+          type: string
+          example: "Telia"
+        additionnalSiteInformation:
+          type: string
+          example: "{\"siteId\":\"N229 NTP 001\",\"category\":\"OnNet\"}"
+        status:
+          type: string
+          example: "EXISTING"
+        fieldedAddress:
+          $ref: "#/components/schemas/FieldedAddress"
+        geographicLocation:
+          $ref: "#/components/schemas/GeographicLocation"
+        geographicSubAdress:
+          type: array
+          items:
+            $ref: "#/components/schemas/GeographicSubAdress"
+      required:
+        - id
+        - siteCompanyName
+        - additionnalSiteInformation
+        - status
+        - fieldedAddress
+        - geographicLocation
+        - geographicSubAdress
+      additionalProperties: false
+    GeographicAddress:
+      type: object
+      properties:
+        streetNr:
+          type: string
+        streetName:
+          type: string
+        city:
+          type: string
+        postcode:
+          type: string
+        country:
+          type: string
+      required:
+        - streetNr
+        - streetName
+        - city
+        - postcode
+        - country
+      additionalProperties: false
+      example:
+        streetNr: "10"
+        streetName: "KRISTINAGATAN"
+        city: "NORRKÖPING"
+        postcode: "60226"
+        country: "SE"
+    FieldedAddress:
+      type: object
+      properties:
+        id:
+          type: integer
+        streetNr:
+          type: string
+        streetName:
+          type: string
+        postcode:
+          type: string
+        city:
+          type: string
+        stateOrProvince:
+          type: string
+        country:
+          type: string
+      required:
+        - id
+        - streetNr
+        - streetName
+        - postcode
+        - city
+        - stateOrProvince
+        - country
+      additionalProperties: false
+    GeographicLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+        spatialRef:
+          type: string
+        geographicPoint:
+          type: array
+          items:
+            $ref: "#/components/schemas/GeographicPoint"
+      required:
+        - id
+        - spatialRef
+        - geographicPoint
+      additionalProperties: false
+    GeographicPoint:
+      type: object
+      properties:
+        latitude:
+          type: string
+        longitude:
+          type: string
+      required:
+        - latitude
+        - longitude
+      additionalProperties: false
+    GeographicSubAdress:
+      type: object
+      properties:
+        id:
+          type: integer
+        buildingName:
+          type: string
+        levelType:
+          type: string
+        levelNumber:
+          type: string
+        subUnit:
+          type: array
+          items:
+            $ref: "#/components/schemas/SubUnit"
+      required:
+        - id
+        - buildingName
+        - subUnit
+      additionalProperties: false
+    SubUnit:
+      type: object
+      properties:
+        subUnitType:
+          type: string
+        subUnitIdentifier:
+          nullable: true
+          type: string
+      required:
+        - subUnitType
+      additionalProperties: false
+  securitySchemes:
+    prodBearerAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api-garden.teliacompany.com/v4/oauth/client_credential/accesstoken
+          scopes: {}
+      description: Token endpoint for the production environment
+    testBearerAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api-garden-test.teliacompany.com/v4/oauth/client_credential/accesstoken
+          scopes: {}
+      description: Token endpoint for all test environments
