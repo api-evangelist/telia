@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "B2X-Global-SiteManagement-API-v1",
+    "version": "1.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api-garden.teliacompany.com/v4/oauth/client_credential/accesstoken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "listGeographicSite",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List geographic sites by site id or other parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement/:country/geographicSite",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Country selector for the address operation."
+              },
+              {
+                "name": "geographicAddress.id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of the geographic address."
+              },
+              {
+                "name": "geographicAddress.streetName",
+                "value": "",
+                "type": "query",
+                "description": "Street name of the geographic site."
+              },
+              {
+                "name": "geographicAddress.streetNr",
+                "value": "",
+                "type": "query",
+                "description": "Street number of the geographic site."
+              },
+              {
+                "name": "geographicAddress.city",
+                "value": "",
+                "type": "query",
+                "description": "City of the geographic site."
+              },
+              {
+                "name": "geographicAddress.country",
+                "value": "",
+                "type": "query",
+                "description": "ISO country code of the geographic address, for example SE."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of geographic sites based on the provided site id or other fields.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "retrieveGeographicSite",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve geographic site by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement/:country/geographicSite/:id",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Country selector for the address operation."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the geographic site."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information for a specific geographic site using its ID.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

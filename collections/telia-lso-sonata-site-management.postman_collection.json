@@ -1,0 +1,1114 @@
+{
+  "item": [
+    {
+      "id": "ff5e96a0-aa9f-4010-a440-733849eaa6bd",
+      "name": "listGeographicSite",
+      "description": {
+        "content": "Retrieves a list of geographic sites based on the provided site id or other fields.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff3bcaf8-ba7d-491b-95f9-620c8fc4b0e2",
+          "name": "List geographic sites by site id or other parameters",
+          "request": {
+            "name": "List geographic sites by site id or other parameters",
+            "description": {
+              "content": "Retrieves a list of geographic sites based on the provided site id or other fields.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":country",
+                "geographicSite"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "geographicAddress.id",
+                  "value": "<string>",
+                  "description": "Unique identifier of the geographic address."
+                },
+                {
+                  "disabled": false,
+                  "key": "geographicAddress.streetName",
+                  "value": "<string>",
+                  "description": "Street name of the geographic site."
+                },
+                {
+                  "disabled": false,
+                  "key": "geographicAddress.streetNr",
+                  "value": "<string>",
+                  "description": "Street number of the geographic site."
+                },
+                {
+                  "disabled": false,
+                  "key": "geographicAddress.city",
+                  "value": "<string>",
+                  "description": "City of the geographic site."
+                },
+                {
+                  "disabled": false,
+                  "key": "geographicAddress.country",
+                  "value": "<string>",
+                  "description": "(Required) ISO country code of the geographic address, for example SE."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "country",
+                  "description": "(Required) Country selector for the address operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "698082af-5c12-474a-97c1-efebc058c5ab",
+              "name": "Successful retrieval of site list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "geographicAddress.id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetNr",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"105839411\",\n    \"siteCompanyName\": \"Telia\",\n    \"status\": \"EXISTING\",\n    \"geographicAddress\": {\n      \"streetNr\": \"10\",\n      \"streetName\": \"KRISTINAGATAN\",\n      \"city\": \"NORRKÖPING\",\n      \"postcode\": \"60226\",\n      \"country\": \"SE\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9b726fe-0560-4a46-9716-daacd46be62f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "geographicAddress.id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetNr",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"reason\": \"Bad Request\",\n  \"message\": \"Mandatory field siteId is missing from path parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "450990e0-4860-433b-925d-0ef9954f692c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "geographicAddress.id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetNr",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"reason\": \"Unauthorized\",\n  \"message\": \"Error while authenticating TMF\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd92f022-82e1-4f2a-a7c6-b2e1ea1fd7ac",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "geographicAddress.id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetNr",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"403\",\n  \"reason\": \"Forbidden\",\n  \"message\": \"Access to the requested resource is denied\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42cc64a4-c667-4cc9-a294-d7af419d39de",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "geographicAddress.id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetNr",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"404\",\n  \"reason\": \"Not Found\",\n  \"message\": \"Site not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d110a20f-c27f-44da-af14-55bdceea091f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "geographicAddress.id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetNr",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"reason\": \"Internal Server Error\",\n  \"message\": \"Error occurred while calling the API\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6737ffe0-cabf-4112-b037-7c5055cc5cdb",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "geographicAddress.id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.streetNr",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "geographicAddress.country",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"503\",\n  \"reason\": \"Service Unavailable\",\n  \"message\": \"Service Unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "812df311-3496-44c0-8b77-4977b3009a21",
+      "name": "retrieveGeographicSite",
+      "description": {
+        "content": "Retrieves detailed information for a specific geographic site using its ID.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "431ffbfb-8190-4a26-b0f8-c3b71ae019fa",
+          "name": "Retrieve geographic site by ID",
+          "request": {
+            "name": "Retrieve geographic site by ID",
+            "description": {
+              "content": "Retrieves detailed information for a specific geographic site using its ID.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":country",
+                "geographicSite",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "country",
+                  "description": "(Required) Country selector for the address operation."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of the geographic site."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d166503-8503-4e0e-a376-bef50682ba58",
+              "name": "Successful retrieval of a site",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the geographic site."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 105839411,\n  \"siteCompanyName\": \"Telia\",\n  \"additionnalSiteInformation\": \"{\\\"siteId\\\":\\\"N229 NTP 001\\\",\\\"category\\\":\\\"OnNet\\\"}\",\n  \"status\": \"EXISTING\",\n  \"fieldedAddress\": {\n    \"id\": 105839411,\n    \"streetNr\": \"10\",\n    \"streetName\": \"KRISTINAGATAN\",\n    \"postcode\": \"60226\",\n    \"city\": \"NORRKÖPING\",\n    \"stateOrProvince\": \"ÖSTERGÖTLANDS LÄN\",\n    \"country\": \"SE\"\n  },\n  \"geographicLocation\": {\n    \"id\": 105839411,\n    \"spatialRef\": \"WGS84\",\n    \"geographicPoint\": [\n      {\n        \"latitude\": \"58.591864\",\n        \"longitude\": \"16.190793\"\n      }\n    ]\n  },\n  \"geographicSubAdress\": [\n    {\n      \"id\": 105839411,\n      \"buildingName\": \"161614704\",\n      \"subUnit\": [\n        {\n          \"subUnitType\": \"business\",\n          \"subUnitIdentifier\": \"1302\"\n        }\n      ]\n    },\n    {\n      \"id\": 105839411,\n      \"buildingName\": \"161304865\",\n      \"subUnit\": [\n        {\n          \"subUnitType\": \"flat\",\n          \"subUnitIdentifier\": \"1581110-2001\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdf57ce6-7a3c-473a-89ea-70c05f862970",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the geographic site."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"400\",\n  \"reason\": \"Bad Request\",\n  \"message\": \"Mandatory field siteId is missing from path parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2c680e8-ef05-4109-ae5b-245887a3d380",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the geographic site."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"401\",\n  \"reason\": \"Unauthorized\",\n  \"message\": \"Error while authenticating TMF\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a68216f6-b525-4828-8825-e83c2dc3c3d4",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the geographic site."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"403\",\n  \"reason\": \"Forbidden\",\n  \"message\": \"Access to the requested resource is denied\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f2467ea-9e90-4f57-b960-6acb8bff0643",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the geographic site."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"404\",\n  \"reason\": \"Not Found\",\n  \"message\": \"Site not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19561c45-559e-4f36-8624-e155e4e5557a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the geographic site."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"500\",\n  \"reason\": \"Internal Server Error\",\n  \"message\": \"Error occurred while calling the API\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b8559e5-d309-4466-b7d7-330c42130023",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":country",
+                    "geographicSite",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country selector for the address operation."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the geographic site."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"503\",\n  \"reason\": \"Service Unavailable\",\n  \"message\": \"Service Unavailable\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api-garden.teliacompany.com/v4/oauth/client_credential/accesstoken"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "df21040b-3350-46e5-af14-a6458447842b",
+    "name": "B2X-Global-SiteManagement-API-v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "**This file forms part of MEF 122**\n\nThis API implements Business Requirements described in MEF 79\n\nIt allows to retrieve a list of Geographic Sites and to get all\ninformation for one geographic site.\n\nList of supported Use Cases:\n\n- Retrieve Service Site List\n- Retrieve Service Site by Identifier\n\nCopyright 2021 MEF Forum and its contributors\n\nThis file includes content based on the TM Forum Geographic Site API (TMF674\nv4.0.0) available at https://github.com/tmforum-apis/TMF674_GeographicSite,\nwhich is licensed by the TM Forum under the Apache License version 2.0. Such\ncontent has been modified by the MEF Forum and its contributors.\n",
+      "type": "text/plain"
+    }
+  }
+}

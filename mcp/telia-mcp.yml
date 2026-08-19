@@ -11,11 +11,9 @@ searched:
   - https://developer.telia.fi/ (Apigee portal, no MCP surface)
   - npm @telia-ace scope (50+ packages, none is an MCP server)
   - github.com/telia-oss (no MCP repository)
-  note: >-
-    Telia Company publishes no hosted or packaged MCP server. The tools below are
-    a CANDIDATE surface derived one-to-one from the only OpenAPI definition Telia
-    serves anonymously; they are not a Telia product and no tools/list endpoint
-    was probed because no server exists to probe.
+  note: Telia Company publishes no hosted or packaged MCP server. The tools below are a CANDIDATE surface
+    derived one-to-one from the only OpenAPI definition Telia serves anonymously; they are not a Telia
+    product and no tools/list endpoint was probed because no server exists to probe.
 server:
   name: telia-lso-sonata
   transport: http
@@ -23,14 +21,19 @@ server:
   auth: OAuth 2.0 client credentials (see authentication/telia-authentication.yml)
 tools:
 - name: list_geographic_sites
-  description: Retrieve a list of geographic sites in a Telia LSO Sonata country,
-    filtered by site id or other query parameters.
+  description: Retrieve a list of geographic sites in a Telia LSO Sonata country, filtered by site id
+    or other query parameters.
   source_operation: openapi/telia-lso-sonata-site-management.yml#listGeographicSite
 - name: retrieve_geographic_site
-  description: Retrieve full detail for a single geographic site by identifier in
-    a Telia LSO Sonata country.
+  description: Retrieve full detail for a single geographic site by identifier in a Telia LSO Sonata country.
   source_operation: openapi/telia-lso-sonata-site-management.yml#retrieveGeographicSite
 coverage:
   openapi_operations: 2
   tools_derived: 2
   hosted_servers_found: 0
+deployment:
+  mode: none
+  verified: derived
+  tools: 2
+  checked: '2026-08-12'
+  source: catalog MCP census
