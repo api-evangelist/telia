@@ -162,6 +162,12 @@ apis:
   - LSO Sonata
   - MEF
   - TM Forum
+  - Notification
+  - Event
+  tags_raw:
+  - LSO Sonata
+  - MEF
+  - TM Forum
   - Notifications
   - Events
   properties:
@@ -317,6 +323,12 @@ apis:
   tags:
   - Messaging
   - SMS
+  - Webhook
+  - Callbacks
+  - Delivery Reports
+  tags_raw:
+  - Messaging
+  - SMS
   - Webhooks
   - Callbacks
   - Delivery Reports
@@ -387,6 +399,12 @@ apis:
   tags:
   - Identity
   - OpenID Connect
+  - Authentication
+  - Strong Authentication
+  - Finland
+  tags_raw:
+  - Identity
+  - OpenID Connect
   - OAuth
   - Strong Authentication
   - Finland
@@ -417,6 +435,13 @@ apis:
   tags:
   - Contact Center
   - Knowledge Base
+  - Self-Service
+  - ACE Knowledge
+  - Humany
+  - Search
+  tags_raw:
+  - Contact Center
+  - Knowledge Base
   - Self Service
   - ACE Knowledge
   - Humany
@@ -444,6 +469,12 @@ apis:
     only Telia event surface whose specification is available without a login.
   humanURL: https://github.com/telia-oss/ace-knowledge-docs/blob/master/REST/webhook.md
   tags:
+  - Contact Center
+  - Webhook
+  - Event
+  - Request Signing
+  - ACE Knowledge
+  tags_raw:
   - Contact Center
   - Webhooks
   - Events
