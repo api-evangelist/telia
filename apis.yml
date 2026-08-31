@@ -553,7 +553,8 @@ apis:
   description: Retrieves a list of geographic sites based on the provided site id or other fields.
   humanURL: https://lso.teliacompany.com/apis
   baseURL: https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement
-  tags:
+  tags: []
+  tags_raw:
   - listGeographicSite
   properties:
   - type: OpenAPI
@@ -571,7 +572,8 @@ apis:
   description: Retrieves detailed information for a specific geographic site using its ID.
   humanURL: https://lso.teliacompany.com/apis
   baseURL: https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement
-  tags:
+  tags: []
+  tags_raw:
   - retrieveGeographicSite
   properties:
   - type: OpenAPI
