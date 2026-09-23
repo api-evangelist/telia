@@ -4,7 +4,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.1
-  title: B2X-Global-SiteManagement-API-v1 Retrieve Geographic Site API
+  title: B2X-Global-SiteManagement-API-v1 Retrieve Geographic Site…
   description: '**This file forms part of MEF 122**
 
 
@@ -13,29 +13,7 @@ info:
 
     It allows to retrieve a list of Geographic Sites and to get all
 
-    information for one geographic site.
-
-
-    List of supported Use Cases:
-
-
-    - Retrieve Service Site List
-
-    - Retrieve Service Site by Identifier
-
-
-    Copyright 2021 MEF Forum and its contributors
-
-
-    This file includes content based on the TM Forum Geographic Site API (TMF674
-
-    v4.0.0) available at https://github.com/tmforum-apis/TMF674_GeographicSite,
-
-    which is licensed by the TM Forum under the Apache License version 2.0. Such
-
-    content has been modified by the MEF Forum and its contributors.
-
-    '
+    information for one geographic site.'
 servers:
 - url: https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement
   description: Production
@@ -54,9 +32,7 @@ paths:
     get:
       operationId: retrieveGeographicSite
       summary: Retrieve geographic site by ID
-      description: 'Retrieves detailed information for a specific geographic site using its ID.
-
-        '
+      description: Retrieves detailed information for a specific geographic site using its ID.
       tags:
       - retrieveGeographicSite
       parameters:
@@ -199,21 +175,6 @@ paths:
                     message: Service Unavailable
 components:
   schemas:
-    Error403:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '403'
-        reason:
-          type: string
-          example: Forbidden
-        message:
-          type: string
-          example: Access to the requested resource is denied
-      required:
-      - code
-      - reason
     GeographicLocation:
       type: object
       properties:
@@ -250,21 +211,6 @@ components:
       - buildingName
       - subUnit
       additionalProperties: false
-    Error404:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '404'
-        reason:
-          type: string
-          example: Not Found
-        message:
-          type: string
-          example: Site not found
-      required:
-      - code
-      - reason
     Error401:
       type: object
       properties:
@@ -280,6 +226,33 @@ components:
       required:
       - code
       - reason
+    Error404:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '404'
+        reason:
+          type: string
+          example: Not Found
+        message:
+          type: string
+          example: Site not found
+      required:
+      - code
+      - reason
+    SubUnit:
+      type: object
+      properties:
+        subUnitType:
+          type: string
+        subUnitIdentifier:
+          type:
+          - string
+          - 'null'
+      required:
+      - subUnitType
+      additionalProperties: false
     Error400:
       type: object
       properties:
@@ -310,17 +283,6 @@ components:
       required:
       - code
       - reason
-    GeographicPoint:
-      type: object
-      properties:
-        latitude:
-          type: string
-        longitude:
-          type: string
-      required:
-      - latitude
-      - longitude
-      additionalProperties: false
     Error503:
       type: object
       properties:
@@ -336,32 +298,6 @@ components:
       required:
       - code
       - reason
-    FieldedAddress:
-      type: object
-      properties:
-        id:
-          type: integer
-        streetNr:
-          type: string
-        streetName:
-          type: string
-        postcode:
-          type: string
-        city:
-          type: string
-        stateOrProvince:
-          type: string
-        country:
-          type: string
-      required:
-      - id
-      - streetNr
-      - streetName
-      - postcode
-      - city
-      - stateOrProvince
-      - country
-      additionalProperties: false
     GeographicSite:
       type: object
       properties:
@@ -394,17 +330,57 @@ components:
       - geographicLocation
       - geographicSubAdress
       additionalProperties: false
-    SubUnit:
+    Error403:
       type: object
       properties:
-        subUnitType:
+        code:
           type: string
-        subUnitIdentifier:
-          type:
-          - string
-          - 'null'
+          example: '403'
+        reason:
+          type: string
+          example: Forbidden
+        message:
+          type: string
+          example: Access to the requested resource is denied
       required:
-      - subUnitType
+      - code
+      - reason
+    FieldedAddress:
+      type: object
+      properties:
+        id:
+          type: integer
+        streetNr:
+          type: string
+        streetName:
+          type: string
+        postcode:
+          type: string
+        city:
+          type: string
+        stateOrProvince:
+          type: string
+        country:
+          type: string
+      required:
+      - id
+      - streetNr
+      - streetName
+      - postcode
+      - city
+      - stateOrProvince
+      - country
+      additionalProperties: false
+    GeographicPoint:
+      type: object
+      properties:
+        latitude:
+          type: string
+        longitude:
+          type: string
+      required:
+      - latitude
+      - longitude
       additionalProperties: false
   securitySchemes:
     prodBearerAuth:

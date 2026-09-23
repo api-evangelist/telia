@@ -13,29 +13,7 @@ info:
 
     It allows to retrieve a list of Geographic Sites and to get all
 
-    information for one geographic site.
-
-
-    List of supported Use Cases:
-
-
-    - Retrieve Service Site List
-
-    - Retrieve Service Site by Identifier
-
-
-    Copyright 2021 MEF Forum and its contributors
-
-
-    This file includes content based on the TM Forum Geographic Site API (TMF674
-
-    v4.0.0) available at https://github.com/tmforum-apis/TMF674_GeographicSite,
-
-    which is licensed by the TM Forum under the Apache License version 2.0. Such
-
-    content has been modified by the MEF Forum and its contributors.
-
-    '
+    information for one geographic site.'
 servers:
 - url: https://api-garden.teliacompany.com/v1/api/mef/geographicSiteManagement
   description: Production
@@ -54,9 +32,7 @@ paths:
     get:
       operationId: listGeographicSite
       summary: List geographic sites by site id or other parameters
-      description: 'Retrieves a list of geographic sites based on the provided site id or other fields.
-
-        '
+      description: Retrieves a list of geographic sites based on the provided site id or other fields.
       tags:
       - listGeographicSite
       parameters:
@@ -217,18 +193,64 @@ paths:
                     message: Service Unavailable
 components:
   schemas:
-    Error403:
+    GeographicAddress:
+      type: object
+      properties:
+        streetNr:
+          type: string
+        streetName:
+          type: string
+        city:
+          type: string
+        postcode:
+          type: string
+        country:
+          type: string
+      required:
+      - streetNr
+      - streetName
+      - city
+      - postcode
+      - country
+      additionalProperties: false
+      example:
+        streetNr: '10'
+        streetName: KRISTINAGATAN
+        city: NORRKÖPING
+        postcode: '60226'
+        country: SE
+    GeographicSiteSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '105839411'
+        siteCompanyName:
+          type: string
+          example: Telia
+        status:
+          type: string
+          example: EXISTING
+        geographicAddress:
+          $ref: '#/components/schemas/GeographicAddress'
+      required:
+      - id
+      - siteCompanyName
+      - status
+      - geographicAddress
+      additionalProperties: false
+    Error401:
       type: object
       properties:
         code:
           type: string
-          example: '403'
+          example: '401'
         reason:
           type: string
-          example: Forbidden
+          example: Unauthorized
         message:
           type: string
-          example: Access to the requested resource is denied
+          example: Error while authenticating TMF
       required:
       - code
       - reason
@@ -244,21 +266,6 @@ components:
         message:
           type: string
           example: Site not found
-      required:
-      - code
-      - reason
-    Error401:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '401'
-        reason:
-          type: string
-          example: Unauthorized
-        message:
-          type: string
-          example: Error while authenticating TMF
       required:
       - code
       - reason
@@ -307,52 +314,21 @@ components:
       required:
       - code
       - reason
-    GeographicSiteSummary:
+    Error403:
       type: object
       properties:
-        id:
+        code:
           type: string
-          example: '105839411'
-        siteCompanyName:
+          example: '403'
+        reason:
           type: string
-          example: Telia
-        status:
+          example: Forbidden
+        message:
           type: string
-          example: EXISTING
-        geographicAddress:
-          $ref: '#/components/schemas/GeographicAddress'
+          example: Access to the requested resource is denied
       required:
-      - id
-      - siteCompanyName
-      - status
-      - geographicAddress
-      additionalProperties: false
-    GeographicAddress:
-      type: object
-      properties:
-        streetNr:
-          type: string
-        streetName:
-          type: string
-        city:
-          type: string
-        postcode:
-          type: string
-        country:
-          type: string
-      required:
-      - streetNr
-      - streetName
-      - city
-      - postcode
-      - country
-      additionalProperties: false
-      example:
-        streetNr: '10'
-        streetName: KRISTINAGATAN
-        city: NORRKÖPING
-        postcode: '60226'
-        country: SE
+      - code
+      - reason
   securitySchemes:
     prodBearerAuth:
       type: oauth2
