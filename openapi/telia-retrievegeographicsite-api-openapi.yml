@@ -175,22 +175,6 @@ paths:
                     message: Service Unavailable
 components:
   schemas:
-    GeographicLocation:
-      type: object
-      properties:
-        id:
-          type: integer
-        spatialRef:
-          type: string
-        geographicPoint:
-          type: array
-          items:
-            $ref: '#/components/schemas/GeographicPoint'
-      required:
-      - id
-      - spatialRef
-      - geographicPoint
-      additionalProperties: false
     GeographicSubAdress:
       type: object
       properties:
@@ -211,18 +195,34 @@ components:
       - buildingName
       - subUnit
       additionalProperties: false
-    Error401:
+    GeographicLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+        spatialRef:
+          type: string
+        geographicPoint:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeographicPoint'
+      required:
+      - id
+      - spatialRef
+      - geographicPoint
+      additionalProperties: false
+    Error403:
       type: object
       properties:
         code:
           type: string
-          example: '401'
+          example: '403'
         reason:
           type: string
-          example: Unauthorized
+          example: Forbidden
         message:
           type: string
-          example: Error while authenticating TMF
+          example: Access to the requested resource is denied
       required:
       - code
       - reason
@@ -241,18 +241,6 @@ components:
       required:
       - code
       - reason
-    SubUnit:
-      type: object
-      properties:
-        subUnitType:
-          type: string
-        subUnitIdentifier:
-          type:
-          - string
-          - 'null'
-      required:
-      - subUnitType
-      additionalProperties: false
     Error400:
       type: object
       properties:
@@ -268,36 +256,59 @@ components:
       required:
       - code
       - reason
-    Error500:
+    SubUnit:
+      type: object
+      properties:
+        subUnitType:
+          type: string
+        subUnitIdentifier:
+          type:
+          - string
+          - 'null'
+      required:
+      - subUnitType
+      additionalProperties: false
+    Error401:
       type: object
       properties:
         code:
           type: string
-          example: '500'
+          example: '401'
         reason:
           type: string
-          example: Internal Server Error
+          example: Unauthorized
         message:
           type: string
-          example: Error occurred while calling the API
+          example: Error while authenticating TMF
       required:
       - code
       - reason
-    Error503:
+    FieldedAddress:
       type: object
       properties:
-        code:
+        id:
+          type: integer
+        streetNr:
           type: string
-          example: '503'
-        reason:
+        streetName:
           type: string
-          example: Service Unavailable
-        message:
+        postcode:
           type: string
-          example: Service Unavailable
+        city:
+          type: string
+        stateOrProvince:
+          type: string
+        country:
+          type: string
       required:
-      - code
-      - reason
+      - id
+      - streetNr
+      - streetName
+      - postcode
+      - city
+      - stateOrProvince
+      - country
+      additionalProperties: false
     GeographicSite:
       type: object
       properties:
@@ -330,47 +341,6 @@ components:
       - geographicLocation
       - geographicSubAdress
       additionalProperties: false
-    Error403:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '403'
-        reason:
-          type: string
-          example: Forbidden
-        message:
-          type: string
-          example: Access to the requested resource is denied
-      required:
-      - code
-      - reason
-    FieldedAddress:
-      type: object
-      properties:
-        id:
-          type: integer
-        streetNr:
-          type: string
-        streetName:
-          type: string
-        postcode:
-          type: string
-        city:
-          type: string
-        stateOrProvince:
-          type: string
-        country:
-          type: string
-      required:
-      - id
-      - streetNr
-      - streetName
-      - postcode
-      - city
-      - stateOrProvince
-      - country
-      additionalProperties: false
     GeographicPoint:
       type: object
       properties:
@@ -382,6 +352,36 @@ components:
       - latitude
       - longitude
       additionalProperties: false
+    Error500:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '500'
+        reason:
+          type: string
+          example: Internal Server Error
+        message:
+          type: string
+          example: Error occurred while calling the API
+      required:
+      - code
+      - reason
+    Error503:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '503'
+        reason:
+          type: string
+          example: Service Unavailable
+        message:
+          type: string
+          example: Service Unavailable
+      required:
+      - code
+      - reason
   securitySchemes:
     prodBearerAuth:
       type: oauth2

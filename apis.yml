@@ -20,17 +20,22 @@ description: Telia Company is the Nordic and Baltic telecommunications group hea
   implementation guide covering an SMPP endpoint and an SMS REST API, and a gRPC
   audio-forwarding contract for its Telia ACE contact-centre product.
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - telia-oss/ace-audio-stream-forwarding-api
+    - telia-oss/ace-knowledge-docs
+    - telia-oss/tunnistus
   open_source: unknown
   commercial: true
   callable_host: true
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - openapi
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: unknown

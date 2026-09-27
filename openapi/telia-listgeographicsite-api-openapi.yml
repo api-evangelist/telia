@@ -219,38 +219,18 @@ components:
         city: NORRKÖPING
         postcode: '60226'
         country: SE
-    GeographicSiteSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: '105839411'
-        siteCompanyName:
-          type: string
-          example: Telia
-        status:
-          type: string
-          example: EXISTING
-        geographicAddress:
-          $ref: '#/components/schemas/GeographicAddress'
-      required:
-      - id
-      - siteCompanyName
-      - status
-      - geographicAddress
-      additionalProperties: false
-    Error401:
+    Error403:
       type: object
       properties:
         code:
           type: string
-          example: '401'
+          example: '403'
         reason:
           type: string
-          example: Unauthorized
+          example: Forbidden
         message:
           type: string
-          example: Error while authenticating TMF
+          example: Access to the requested resource is denied
       required:
       - code
       - reason
@@ -284,6 +264,21 @@ components:
       required:
       - code
       - reason
+    Error401:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '401'
+        reason:
+          type: string
+          example: Unauthorized
+        message:
+          type: string
+          example: Error while authenticating TMF
+      required:
+      - code
+      - reason
     Error500:
       type: object
       properties:
@@ -299,6 +294,26 @@ components:
       required:
       - code
       - reason
+    GeographicSiteSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '105839411'
+        siteCompanyName:
+          type: string
+          example: Telia
+        status:
+          type: string
+          example: EXISTING
+        geographicAddress:
+          $ref: '#/components/schemas/GeographicAddress'
+      required:
+      - id
+      - siteCompanyName
+      - status
+      - geographicAddress
+      additionalProperties: false
     Error503:
       type: object
       properties:
@@ -311,21 +326,6 @@ components:
         message:
           type: string
           example: Service Unavailable
-      required:
-      - code
-      - reason
-    Error403:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '403'
-        reason:
-          type: string
-          example: Forbidden
-        message:
-          type: string
-          example: Access to the requested resource is denied
       required:
       - code
       - reason
