@@ -175,140 +175,6 @@ paths:
                     message: Service Unavailable
 components:
   schemas:
-    GeographicSubAdress:
-      type: object
-      properties:
-        id:
-          type: integer
-        buildingName:
-          type: string
-        levelType:
-          type: string
-        levelNumber:
-          type: string
-        subUnit:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubUnit'
-      required:
-      - id
-      - buildingName
-      - subUnit
-      additionalProperties: false
-    GeographicLocation:
-      type: object
-      properties:
-        id:
-          type: integer
-        spatialRef:
-          type: string
-        geographicPoint:
-          type: array
-          items:
-            $ref: '#/components/schemas/GeographicPoint'
-      required:
-      - id
-      - spatialRef
-      - geographicPoint
-      additionalProperties: false
-    Error403:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '403'
-        reason:
-          type: string
-          example: Forbidden
-        message:
-          type: string
-          example: Access to the requested resource is denied
-      required:
-      - code
-      - reason
-    Error404:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '404'
-        reason:
-          type: string
-          example: Not Found
-        message:
-          type: string
-          example: Site not found
-      required:
-      - code
-      - reason
-    Error400:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '400'
-        reason:
-          type: string
-          example: Bad Request
-        message:
-          type: string
-          example: Mandatory field siteId is missing from path parameters
-      required:
-      - code
-      - reason
-    SubUnit:
-      type: object
-      properties:
-        subUnitType:
-          type: string
-        subUnitIdentifier:
-          type:
-          - string
-          - 'null'
-      required:
-      - subUnitType
-      additionalProperties: false
-    Error401:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '401'
-        reason:
-          type: string
-          example: Unauthorized
-        message:
-          type: string
-          example: Error while authenticating TMF
-      required:
-      - code
-      - reason
-    FieldedAddress:
-      type: object
-      properties:
-        id:
-          type: integer
-        streetNr:
-          type: string
-        streetName:
-          type: string
-        postcode:
-          type: string
-        city:
-          type: string
-        stateOrProvince:
-          type: string
-        country:
-          type: string
-      required:
-      - id
-      - streetNr
-      - streetName
-      - postcode
-      - city
-      - stateOrProvince
-      - country
-      additionalProperties: false
     GeographicSite:
       type: object
       properties:
@@ -341,17 +207,21 @@ components:
       - geographicLocation
       - geographicSubAdress
       additionalProperties: false
-    GeographicPoint:
+    Error403:
       type: object
       properties:
-        latitude:
+        code:
           type: string
-        longitude:
+          example: '403'
+        reason:
           type: string
+          example: Forbidden
+        message:
+          type: string
+          example: Access to the requested resource is denied
       required:
-      - latitude
-      - longitude
-      additionalProperties: false
+      - code
+      - reason
     Error500:
       type: object
       properties:
@@ -367,6 +237,74 @@ components:
       required:
       - code
       - reason
+    Error404:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '404'
+        reason:
+          type: string
+          example: Not Found
+        message:
+          type: string
+          example: Site not found
+      required:
+      - code
+      - reason
+    GeographicPoint:
+      type: object
+      properties:
+        latitude:
+          type: string
+        longitude:
+          type: string
+      required:
+      - latitude
+      - longitude
+      additionalProperties: false
+    FieldedAddress:
+      type: object
+      properties:
+        id:
+          type: integer
+        streetNr:
+          type: string
+        streetName:
+          type: string
+        postcode:
+          type: string
+        city:
+          type: string
+        stateOrProvince:
+          type: string
+        country:
+          type: string
+      required:
+      - id
+      - streetNr
+      - streetName
+      - postcode
+      - city
+      - stateOrProvince
+      - country
+      additionalProperties: false
+    GeographicLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+        spatialRef:
+          type: string
+        geographicPoint:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeographicPoint'
+      required:
+      - id
+      - spatialRef
+      - geographicPoint
+      additionalProperties: false
     Error503:
       type: object
       properties:
@@ -382,6 +320,68 @@ components:
       required:
       - code
       - reason
+    SubUnit:
+      type: object
+      properties:
+        subUnitType:
+          type: string
+        subUnitIdentifier:
+          type:
+          - string
+          - 'null'
+      required:
+      - subUnitType
+      additionalProperties: false
+    Error400:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '400'
+        reason:
+          type: string
+          example: Bad Request
+        message:
+          type: string
+          example: Mandatory field siteId is missing from path parameters
+      required:
+      - code
+      - reason
+    Error401:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '401'
+        reason:
+          type: string
+          example: Unauthorized
+        message:
+          type: string
+          example: Error while authenticating TMF
+      required:
+      - code
+      - reason
+    GeographicSubAdress:
+      type: object
+      properties:
+        id:
+          type: integer
+        buildingName:
+          type: string
+        levelType:
+          type: string
+        levelNumber:
+          type: string
+        subUnit:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubUnit'
+      required:
+      - id
+      - buildingName
+      - subUnit
+      additionalProperties: false
   securitySchemes:
     prodBearerAuth:
       type: oauth2

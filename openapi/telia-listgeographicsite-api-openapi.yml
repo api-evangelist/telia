@@ -193,6 +193,21 @@ paths:
                     message: Service Unavailable
 components:
   schemas:
+    Error403:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '403'
+        reason:
+          type: string
+          example: Forbidden
+        message:
+          type: string
+          example: Access to the requested resource is denied
+      required:
+      - code
+      - reason
     GeographicAddress:
       type: object
       properties:
@@ -219,18 +234,18 @@ components:
         city: NORRKÖPING
         postcode: '60226'
         country: SE
-    Error403:
+    Error500:
       type: object
       properties:
         code:
           type: string
-          example: '403'
+          example: '500'
         reason:
           type: string
-          example: Forbidden
+          example: Internal Server Error
         message:
           type: string
-          example: Access to the requested resource is denied
+          example: Error occurred while calling the API
       required:
       - code
       - reason
@@ -246,6 +261,21 @@ components:
         message:
           type: string
           example: Site not found
+      required:
+      - code
+      - reason
+    Error503:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '503'
+        reason:
+          type: string
+          example: Service Unavailable
+        message:
+          type: string
+          example: Service Unavailable
       required:
       - code
       - reason
@@ -279,21 +309,6 @@ components:
       required:
       - code
       - reason
-    Error500:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '500'
-        reason:
-          type: string
-          example: Internal Server Error
-        message:
-          type: string
-          example: Error occurred while calling the API
-      required:
-      - code
-      - reason
     GeographicSiteSummary:
       type: object
       properties:
@@ -314,21 +329,6 @@ components:
       - status
       - geographicAddress
       additionalProperties: false
-    Error503:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '503'
-        reason:
-          type: string
-          example: Service Unavailable
-        message:
-          type: string
-          example: Service Unavailable
-      required:
-      - code
-      - reason
   securitySchemes:
     prodBearerAuth:
       type: oauth2
