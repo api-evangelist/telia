@@ -193,6 +193,56 @@ paths:
                     message: Service Unavailable
 components:
   schemas:
+    Error400:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '400'
+        reason:
+          type: string
+          example: Bad Request
+        message:
+          type: string
+          example: Mandatory field siteId is missing from path parameters
+      required:
+      - code
+      - reason
+    Error500:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '500'
+        reason:
+          type: string
+          example: Internal Server Error
+        message:
+          type: string
+          example: Error occurred while calling the API
+      required:
+      - code
+      - reason
+    GeographicSiteSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '105839411'
+        siteCompanyName:
+          type: string
+          example: Telia
+        status:
+          type: string
+          example: EXISTING
+        geographicAddress:
+          $ref: '#/components/schemas/GeographicAddress'
+      required:
+      - id
+      - siteCompanyName
+      - status
+      - geographicAddress
+      additionalProperties: false
     Error403:
       type: object
       properties:
@@ -205,6 +255,36 @@ components:
         message:
           type: string
           example: Access to the requested resource is denied
+      required:
+      - code
+      - reason
+    Error503:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '503'
+        reason:
+          type: string
+          example: Service Unavailable
+        message:
+          type: string
+          example: Service Unavailable
+      required:
+      - code
+      - reason
+    Error404:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '404'
+        reason:
+          type: string
+          example: Not Found
+        message:
+          type: string
+          example: Site not found
       required:
       - code
       - reason
@@ -234,66 +314,6 @@ components:
         city: NORRKÖPING
         postcode: '60226'
         country: SE
-    Error500:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '500'
-        reason:
-          type: string
-          example: Internal Server Error
-        message:
-          type: string
-          example: Error occurred while calling the API
-      required:
-      - code
-      - reason
-    Error404:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '404'
-        reason:
-          type: string
-          example: Not Found
-        message:
-          type: string
-          example: Site not found
-      required:
-      - code
-      - reason
-    Error503:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '503'
-        reason:
-          type: string
-          example: Service Unavailable
-        message:
-          type: string
-          example: Service Unavailable
-      required:
-      - code
-      - reason
-    Error400:
-      type: object
-      properties:
-        code:
-          type: string
-          example: '400'
-        reason:
-          type: string
-          example: Bad Request
-        message:
-          type: string
-          example: Mandatory field siteId is missing from path parameters
-      required:
-      - code
-      - reason
     Error401:
       type: object
       properties:
@@ -309,26 +329,6 @@ components:
       required:
       - code
       - reason
-    GeographicSiteSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: '105839411'
-        siteCompanyName:
-          type: string
-          example: Telia
-        status:
-          type: string
-          example: EXISTING
-        geographicAddress:
-          $ref: '#/components/schemas/GeographicAddress'
-      required:
-      - id
-      - siteCompanyName
-      - status
-      - geographicAddress
-      additionalProperties: false
   securitySchemes:
     prodBearerAuth:
       type: oauth2
