@@ -15,3 +15,56 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: telia-ccadb-root-programs-apple-chrome-microsoft-mozilla
+  label: CCADB root programs (Apple, Chrome, Microsoft, Mozilla)
+  partner_name: CCADB root programs (Apple, Chrome, Microsoft, Mozilla)
+  category: publicly-trusted CA
+  type: register
+  channel: standard-directory
+  evidence: https://ccadb.my.salesforce-sites.com/ccadb/AllCertificateRecordsCSVFormatv4
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: CCADB AllCertificateRecordsCSVFormatv4 (ccadb.my.salesforce-sites.com)
+    standard: CCADB root programs
+    spec_file: null
+    role: root-ca-owner
+    registered_name: Telia Company
+    register_id: Telia Company
+    matched_domain: teliacompany.com
+    matched_by: domain
+    domain_source: 'Mozilla CA Information Report: Company Website'
+    country:
+    - Sweden
+    audit_types:
+    - ETSI EN 319 411
+    - WebTrust
+    auditors_not_linked:
+    - Ernst & Young, LLP
+    - KPMG
+    - datenschutz cert GmbH
+    capabilities: []
+    signal_note: certified_products = one entry per ROOT STORE (Apple / Chrome / Microsoft / Mozilla), current when
+      any root is Included, lapsed when every root there is Removed / Blocked / Disabled; root counts, audit seals
+      and auditors are context, never counted. A subordinate operator is participation only
+    detected_by: sweep-pki-encryption.py
+    detected: '2026-10-18'
+    certified_products:
+    - product: Apple root store
+      store: Apple
+      lapsed: false
+      included_roots: 2
+    - product: Chrome root store
+      store: Chrome
+      lapsed: false
+      included_roots: 1
+    - product: Microsoft root store
+      store: Microsoft
+      lapsed: false
+      included_roots: 10
+    - product: Mozilla root store
+      store: Mozilla
+      lapsed: false
+      included_roots: 5
+  status: not-a-workflow
+  arazzo: null
